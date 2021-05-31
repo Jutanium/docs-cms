@@ -1,5 +1,5 @@
 
-import { google } from "googleapis";
+import {docs_v1, drive_v3, google} from "googleapis";
 
 type config = {
   client_email: string,
@@ -11,7 +11,7 @@ function getJWT(config: config) {
   return new google.auth.JWT(config.client_email, undefined, config.private_key, scopes);
 }
 
-export async function getDoc(config: config, documentId: string) {
+export async function getDoc(config: config, documentId: string): Promise<docs_v1.Schema$Document | undefined> {
   const auth = getJWT(config);
 
   try {
@@ -26,7 +26,7 @@ export async function getDoc(config: config, documentId: string) {
   }
 }
 
-export async function getFilesInFolder(config: config, folderId: string) {
+export async function getFilesInFolder(config: config, folderId: string): Promise<Array<drive_v3.Schema$File> | undefined> {
 
   const auth = getJWT(config);
 
@@ -35,7 +35,6 @@ export async function getFilesInFolder(config: config, folderId: string) {
       auth,
       q: `'${folderId}' in parents`
     });
-    console.dir(resp.data.files);
     return resp.data.files;
   } catch (error) {
     console.error(error);
