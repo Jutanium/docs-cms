@@ -1,3 +1,4 @@
 import { getDoc } from "./connect"
+import { parseDoc} from "./parse";
 
-export { getDoc };
+export { getDoc, parseDoc };

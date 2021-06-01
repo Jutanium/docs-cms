@@ -6,11 +6,13 @@ import {docs_v1, drive_v3} from "googleapis";
 const testFolder = "1N6LOELmhyojRJgaqP1DgfP7s0yJYmCqU";
 const testFile = "13CmnM9JAJJoDsVjPR79og0JTORlUISyAzhxo1K-UeTU"
 
+let returnedFile: docs_v1.Schema$Document | undefined;
+beforeAll(async () => returnedFile = await getDoc(info, testFile));
+
+let returnedFiles: Array<drive_v3.Schema$File> | undefined;
+beforeAll(async () => returnedFiles = await getFilesInFolder(info, testFolder));
+
 describe("getFilesInFolder", () => {
-
-  let returnedFiles: Array<drive_v3.Schema$File> | undefined;
-  beforeAll(async () => returnedFiles = await getFilesInFolder(info, testFolder));
-
   test('returns an array of files', async () => {
     const isArray = Array.isArray(returnedFiles);
     expect(isArray).toBeTruthy();
@@ -24,10 +26,8 @@ describe("getFilesInFolder", () => {
 
 })
 
-describe("getDoc", () => {
-  let returnedFile: docs_v1.Schema$Document | undefined;
 
-  beforeAll(async () => returnedFile = await getDoc(info, testFile));
+describe("getDoc", () => {
   test('returns a document', () => {
     expect(returnedFile).toBeTruthy();
     expect(returnedFile).toEqual(expect.objectContaining({
@@ -36,7 +36,6 @@ describe("getDoc", () => {
       body: expect.objectContaining({ content: expect.any(Array)})
     }))
   })
-
 
 
 
