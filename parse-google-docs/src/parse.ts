@@ -8,7 +8,7 @@ function parseBody(body: docs_v1.Schema$Body) {
   fs.writeFileSync('./data.json', JSON.stringify(body.content, null, 2) , 'utf-8');
 
   if (!body.content) return;
-  const parsed = body.content.map(c => parseContent(c));
+  const parsed = body.content.map(c => parseContent(c)).filter(el => el);
 
   fs.writeFileSync('./processed.json', JSON.stringify(parsed, null, 2) , 'utf-8');
 }

@@ -1,21 +1,29 @@
 import {elementMatcher} from "./types";
 import {docs_v1} from "googleapis";
 
+type textContent = {
+  simple?: true,
+  children: Array<string | object>
+}
+
 type paragraph = {
-  paragraph: {
-    simple?: true,
-    children: Array<string | object>
-  }
+  paragraph: textContent
+}
+
+type header = {
+  header: textContent | { size: number }
 }
 
 const paragraphMatcher: elementMatcher = {
   matchProperty: "paragraph",
-  resolve (object, parseChild): paragraph | false {
+  resolve(object, parseChild): paragraph | header | false {
     const paragraph = object as docs_v1.Schema$Paragraph;
     if (paragraph.elements) {
       const children: Array<string | object> = [];
       paragraph.elements.map(parseChild).forEach(el => {
         if (!el) return;
+
+        if (el == "\n" || (el as styledText)?.styledText?.html == "\n") return;
 
         const lastAdded = children.length && children[children.length - 1];
         if (typeof lastAdded == "string" && typeof el == "string") {
@@ -25,10 +33,30 @@ const paragraphMatcher: elementMatcher = {
 
         children.push(el);
       })
+
+      if (children.length == 0)
+        return false;
+
+      const isSimple = children.length == 1 && typeof children[0] == "string";
+
+      const properties: textContent = {
+        children,
+        ...(isSimple && {simple: true})
+      }
+
+      if (paragraph.paragraphStyle?.namedStyleType?.includes("HEADING")) {
+        const size = Number(paragraph.paragraphStyle.namedStyleType.split('_')[1]);
+        return {
+          header: {
+            size,
+            ...properties
+          }
+        }
+      }
+
       return {
         paragraph: {
-          children,
-          ...(children.length == 1 && {simple: true})
+          ...properties
         }
       }
     }
@@ -37,18 +65,30 @@ const paragraphMatcher: elementMatcher = {
 }
 
 
-
-const htmlReplacements: {[matchProperty: string]: (text: string, value: object) => string} = {
+const htmlReplacements: { [matchProperty: string]: (text: string, value: object) => string } = {
   underline: text => `<u>${text}</u>`,
   italic: text => `<i>${text}</i>`,
   bold: text => `<b>${text}</b>`,
   strikethrough: text => `<s>${text}</s>`,
-  link: (text, linkObj ) => `<a href="${(linkObj as docs_v1.Schema$Link).url}">${text}</a>`
+  link: (text, linkObj) => `<a href="${(linkObj as docs_v1.Schema$Link).url}">${text}</a>`
 }
 
+type textStyles = {
+  color?: string,
+  "background-color"?: string,
+  "font-family"?: string,
+  "font-weight"?: number,
+  "font-size"?: string
+}
+type styledText = {
+  styledText: {
+    html: string,
+    css: textStyles
+  }
+}
 const textRunMatcher: elementMatcher = {
   matchProperty: "textRun",
-  resolve (object, parseChild) {
+  resolve(object, parseChild): string | styledText | false {
     const text = object as docs_v1.Schema$TextRun;
     if (!text.content) return false;
 
@@ -56,6 +96,7 @@ const textRunMatcher: elementMatcher = {
 
     let html = text.content;
     if (!textStyle) return html;
+
 
     // const colors: {foreground?: string, background?: string} = {};
     // const font: {family?: string, weight?: number, size?: string} = {};
@@ -90,7 +131,7 @@ const textRunMatcher: elementMatcher = {
     }
 
     if (textStyle?.weightedFontFamily) {
-      const { fontFamily, weight} = textStyle.weightedFontFamily;
+      const {fontFamily, weight} = textStyle.weightedFontFamily;
       if (fontFamily) {
         css["font-family"] = fontFamily;
         if (weight) css["font-weight"] = weight;
@@ -122,30 +163,47 @@ const textRunMatcher: elementMatcher = {
 
 const tableMatcher: elementMatcher = {
   matchProperty: "table",
-  resolve (object, parseChild) {
+  resolve(object, parseChild) {
     const table = object as docs_v1.Schema$Table;
     if (!table.tableRows?.length) return false;
-    const rows = table.tableRows.map (row => row.tableCells!.map(cell => {
-        const content = cell.content!.map(c => {
-          const element = parseChild(c);
-          if (typeof element == "object" && "paragraph" in element) {
-            const paragraph = (element as paragraph).paragraph;
-            if (paragraph.simple) {
-              return paragraph.children[0];
+    const cells = [];
+    const rows = Array.from(Array(table.rows!), () => Array(table.columns!).fill(-1));
+    table.tableRows.forEach((tableRow, y) => {
+        tableRow.tableCells!.forEach((cell, x) => {
+
+          const content = cell.content!.map(c => {
+            const element = parseChild(c);
+            if (typeof element == "object" && "paragraph" in element) {
+              const paragraph = (element as paragraph).paragraph;
+              if (paragraph.simple) {
+                return paragraph.children[0];
+              }
+            }
+            return element;
+          }).filter(el => el);
+
+          if (content.length == 0) return;
+
+          const {rowSpan, columnSpan} = cell.tableCellStyle!;
+
+          for (let i = 0; i < rowSpan!; i++) {
+            for (let j = 0; j < columnSpan!; j++) {
+              rows[y + i][x + j] = cells.length;
             }
           }
-          return element;
-        })
 
-        if (content.length == 1) {
-          return content[0];
-        }
-        return content;
-      })
+          if (content.length == 1) {
+            cells.push(content[0]);
+            return
+          }
+          cells.push(content);
+        })
+      }
     );
     return {
       table: {
-        rows
+        rows,
+        cells
       }
     };
     return false;

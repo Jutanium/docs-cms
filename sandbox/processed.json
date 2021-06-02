@@ -81,39 +81,37 @@
     }
   },
   {
-    "paragraph": {
-      "children": [
-        "\n"
-      ],
-      "simple": true
-    }
-  },
-  {
     "table": {
       "rows": [
         [
-          "hi\n",
-          [
-            "inside\n",
-            "\n",
-            {
-              "table": {
-                "rows": [
-                  [
-                    "one point one\n"
-                  ],
-                  [
-                    "one point two\n"
-                  ]
-                ]
-              }
-            },
-            "\n"
-          ]
+          0,
+          1
         ],
         [
-          "\n",
-          "\n"
+          0,
+          -1
+        ]
+      ],
+      "cells": [
+        "hi\n",
+        [
+          "inside\n",
+          {
+            "table": {
+              "rows": [
+                [
+                  0
+                ],
+                [
+                  1
+                ]
+              ],
+              "cells": [
+                "one point one\n",
+                "one point two\n"
+              ]
+            }
+          }
         ]
       ]
     }
@@ -127,58 +125,28 @@
     }
   },
   {
-    "paragraph": {
-      "children": [
-        "\n"
-      ],
-      "simple": true
-    }
-  },
-  {
-    "paragraph": {
-      "children": [
-        "\n"
-      ],
-      "simple": true
-    }
-  },
-  {
     "table": {
       "rows": [
         [
-          "Single-cell tablety\n"
+          0,
+          1
+        ],
+        [
+          2,
+          2
         ]
+      ],
+      "cells": [
+        "potato\n",
+        "tomato\n",
+        "bottom\n"
       ]
     }
   },
   {
     "paragraph": {
       "children": [
-        "\n"
-      ],
-      "simple": true
-    }
-  },
-  {
-    "paragraph": {
-      "children": [
-        "\n"
-      ],
-      "simple": true
-    }
-  },
-  {
-    "paragraph": {
-      "children": [
-        "<b>asdfasdfasdfasdfasdf sad fasdf asdf asdf asdf asdf asdfasdf asdf asdf asdf asdf asdf sadf asdf asdf asdf </b>\n"
-      ],
-      "simple": true
-    }
-  },
-  {
-    "paragraph": {
-      "children": [
-        "\n"
+        "<b>asdfasdfasdfasdfasdf sad fasdf asdf asdf asdf asdf asdfasdf asdf asdf asdf asdf asdf sadf asdf asdf asdf </b>"
       ],
       "simple": true
     }
@@ -195,6 +163,80 @@
             }
           }
         }
+      ]
+    }
+  },
+  {
+    "table": {
+      "rows": [
+        [
+          -1,
+          -1,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "cells": [
+        {
+          "paragraph": {
+            "children": [
+              {
+                "styledText": {
+                  "html": "Bottom right\n",
+                  "css": {
+                    "font-family": "Lato",
+                    "font-weight": 300
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "unmatched": {
+      "startIndex": 313,
+      "endIndex": 314,
+      "sectionBreak": {
+        "sectionStyle": {
+          "columnSeparatorStyle": "NONE",
+          "contentDirection": "LEFT_TO_RIGHT",
+          "sectionType": "NEXT_PAGE"
+        }
+      }
+    }
+  },
+  {
+    "paragraph": {
+      "children": [
+        {
+          "styledText": {
+            "html": "Another section\n",
+            "css": {
+              "font-family": "Lato",
+              "font-weight": 300
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "header": {
+      "size": 1,
+      "children": [
+        "This is a heading"
       ],
       "simple": true
     }
