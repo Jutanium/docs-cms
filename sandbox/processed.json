@@ -84,93 +84,36 @@
     "paragraph": {
       "children": [
         "\n"
-      ]
+      ],
+      "simple": true
     }
   },
   {
     "table": {
       "rows": [
         [
+          "hi\n",
           [
-            {
-              "paragraph": {
-                "children": [
-                  "hi\n"
-                ]
-              }
-            }
-          ],
-          [
-            {
-              "paragraph": {
-                "children": [
-                  "inside\n"
-                ]
-              }
-            },
-            {
-              "paragraph": {
-                "children": [
-                  "\n"
-                ]
-              }
-            },
+            "inside\n",
+            "\n",
             {
               "table": {
                 "rows": [
                   [
-                    [
-                      {
-                        "paragraph": {
-                          "children": [
-                            "one point one\n"
-                          ]
-                        }
-                      }
-                    ]
+                    "one point one\n"
                   ],
                   [
-                    [
-                      {
-                        "paragraph": {
-                          "children": [
-                            "one point two\n"
-                          ]
-                        }
-                      }
-                    ]
+                    "one point two\n"
                   ]
                 ]
               }
             },
-            {
-              "paragraph": {
-                "children": [
-                  "\n"
-                ]
-              }
-            }
+            "\n"
           ]
         ],
         [
-          [
-            {
-              "paragraph": {
-                "children": [
-                  "\n"
-                ]
-              }
-            }
-          ],
-          [
-            {
-              "paragraph": {
-                "children": [
-                  "\n"
-                ]
-              }
-            }
-          ]
+          "\n",
+          "\n"
         ]
       ]
     }
@@ -179,36 +122,31 @@
     "paragraph": {
       "children": [
         "after\n"
-      ]
+      ],
+      "simple": true
     }
   },
   {
     "paragraph": {
       "children": [
         "\n"
-      ]
+      ],
+      "simple": true
     }
   },
   {
     "paragraph": {
       "children": [
         "\n"
-      ]
+      ],
+      "simple": true
     }
   },
   {
     "table": {
       "rows": [
         [
-          [
-            {
-              "paragraph": {
-                "children": [
-                  "Single-cell tablety\n"
-                ]
-              }
-            }
-          ]
+          "Single-cell tablety\n"
         ]
       ]
     }
@@ -217,28 +155,32 @@
     "paragraph": {
       "children": [
         "\n"
-      ]
+      ],
+      "simple": true
     }
   },
   {
     "paragraph": {
       "children": [
         "\n"
-      ]
+      ],
+      "simple": true
     }
   },
   {
     "paragraph": {
       "children": [
         "<b>asdfasdfasdfasdfasdf sad fasdf asdf asdf asdf asdf asdfasdf asdf asdf asdf asdf asdf sadf asdf asdf asdf </b>\n"
-      ]
+      ],
+      "simple": true
     }
   },
   {
     "paragraph": {
       "children": [
         "\n"
-      ]
+      ],
+      "simple": true
     }
   },
   {
@@ -253,7 +195,8 @@
             }
           }
         }
-      ]
+      ],
+      "simple": true
     }
   }
 ]

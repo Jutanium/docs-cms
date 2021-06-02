@@ -1,9 +1,16 @@
 import {elementMatcher} from "./types";
 import {docs_v1} from "googleapis";
 
+type paragraph = {
+  paragraph: {
+    simple?: true,
+    children: Array<string | object>
+  }
+}
+
 const paragraphMatcher: elementMatcher = {
   matchProperty: "paragraph",
-  resolve (object, parseChild) {
+  resolve (object, parseChild): paragraph | false {
     const paragraph = object as docs_v1.Schema$Paragraph;
     if (paragraph.elements) {
       const children: Array<string | object> = [];
@@ -20,7 +27,8 @@ const paragraphMatcher: elementMatcher = {
       })
       return {
         paragraph: {
-          children
+          children,
+          ...(children.length == 1 && {simple: true})
         }
       }
     }
@@ -117,11 +125,24 @@ const tableMatcher: elementMatcher = {
   resolve (object, parseChild) {
     const table = object as docs_v1.Schema$Table;
     if (!table.tableRows?.length) return false;
-    const rows = table.tableRows.map (row => {
-      const cells = row.tableCells;
-      // @ts-ignore
-      return cells.map(cell => cell.content.map(content => parseChild(content)))
-    });
+    const rows = table.tableRows.map (row => row.tableCells!.map(cell => {
+        const content = cell.content!.map(c => {
+          const element = parseChild(c);
+          if (typeof element == "object" && "paragraph" in element) {
+            const paragraph = (element as paragraph).paragraph;
+            if (paragraph.simple) {
+              return paragraph.children[0];
+            }
+          }
+          return element;
+        })
+
+        if (content.length == 1) {
+          return content[0];
+        }
+        return content;
+      })
+    );
     return {
       table: {
         rows
