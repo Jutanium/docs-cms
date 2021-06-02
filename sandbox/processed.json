@@ -76,9 +76,7 @@
             }
           }
         },
-        " ",
-        "<b>bold </b>",
-        "<i>italic\n</i>"
+        " <b>bold </b><i>italic\n</i>"
       ]
     }
   },
@@ -232,8 +230,7 @@
   {
     "paragraph": {
       "children": [
-        "<b>asdfasdfasdfasdfasdf sad fasdf asdf asdf asdf asdf asdfasdf asdf asdf asdf asdf asdf sadf asdf asdf asdf </b>",
-        "\n"
+        "<b>asdfasdfasdfasdfasdf sad fasdf asdf asdf asdf asdf asdfasdf asdf asdf asdf asdf asdf sadf asdf asdf asdf </b>\n"
       ]
     }
   },

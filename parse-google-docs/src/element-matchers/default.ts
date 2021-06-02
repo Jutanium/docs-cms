@@ -6,9 +6,21 @@ const paragraphMatcher: elementMatcher = {
   resolve (object, parseChild) {
     const paragraph = object as docs_v1.Schema$Paragraph;
     if (paragraph.elements) {
+      const children: Array<string | object> = [];
+      paragraph.elements.map(parseChild).forEach(el => {
+        if (!el) return;
+
+        const lastAdded = children.length && children[children.length - 1];
+        if (typeof lastAdded == "string" && typeof el == "string") {
+          children[children.length - 1] += el;
+          return;
+        }
+
+        children.push(el);
+      })
       return {
         paragraph: {
-          children: paragraph.elements.map(parseChild).filter(child => child)
+          children
         }
       }
     }
