@@ -14,9 +14,71 @@
   {
     "paragraph": {
       "children": [
-        "Test ",
-        "paragraph ",
-        "yep\n"
+        {
+          "styledText": {
+            "html": "Test ",
+            "css": {
+              "font-size": "8PT"
+            }
+          }
+        },
+        {
+          "styledText": {
+            "html": "<b><i>paragraph </i></b>",
+            "css": {
+              "font-family": "Consolas",
+              "font-weight": 400
+            }
+          }
+        },
+        {
+          "styledText": {
+            "html": "yep ",
+            "css": {
+              "font-family": "Merriweather",
+              "font-weight": 400,
+              "font-size": "14PT"
+            }
+          }
+        },
+        "a",
+        {
+          "styledText": {
+            "html": "<a href=\"https://www.yahoo.com/\"><u>sdfa</u></a>",
+            "css": {
+              "color": "rgb(6.6666669999999995%, 33.333334%, 80%)"
+            }
+          }
+        },
+        "sdf ",
+        {
+          "styledText": {
+            "html": "fore ",
+            "css": {
+              "color": "rgb(100%, 0%, 0%)"
+            }
+          }
+        },
+        {
+          "styledText": {
+            "html": "back t",
+            "css": {
+              "background-color": "rgb(100%, 100%, 0%)"
+            }
+          }
+        },
+        "ran",
+        {
+          "styledText": {
+            "html": "sparent",
+            "css": {
+              "background-color": "rgb(100%, 100%, 0%)"
+            }
+          }
+        },
+        " ",
+        "<b>bold </b>",
+        "<i>italic\n</i>"
       ]
     }
   },
@@ -170,7 +232,30 @@
   {
     "paragraph": {
       "children": [
-        "asdfasdfasdfasdfasdf sad fasdf asdf asdf asdf asdf asdfasdf asdf asdf asdf asdf asdf sadf asdf asdf asdf \n"
+        "<b>asdfasdfasdfasdfasdf sad fasdf asdf asdf asdf asdf asdfasdf asdf asdf asdf asdf asdf sadf asdf asdf asdf </b>",
+        "\n"
+      ]
+    }
+  },
+  {
+    "paragraph": {
+      "children": [
+        "\n"
+      ]
+    }
+  },
+  {
+    "paragraph": {
+      "children": [
+        {
+          "styledText": {
+            "html": "Font\n",
+            "css": {
+              "font-family": "Lato",
+              "font-weight": 300
+            }
+          }
+        }
       ]
     }
   }
