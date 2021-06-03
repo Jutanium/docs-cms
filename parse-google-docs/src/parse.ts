@@ -17,16 +17,43 @@ export function parseContent(obj: any): element | false {
   }
 }
 
+export function parseContentArray(contentArray: Array<object>): Array<element> {
+  return contentArray.map(c => parseContent(c)).filter(Boolean) as Array<element>;
+}
+
+type document = {
+  title: string,
+  body: Array<element>,
+  footnotes?: {
+    [footnoteId: string]: Array<element>
+  }
+}
 export function parseDoc(doc: docs_v1.Schema$Document, elementMatchers: Array<elementMatcher> | undefined) {
   if (elementMatchers) {
     usingMatchers = elementMatchers;
   }
-  if (doc.body) {
-    fs.writeFileSync('./data.json', JSON.stringify(doc.body.content, null, 2) , 'utf-8');
 
-    if (!doc.body.content) return;
-    const parsed = doc.body.content.map(c => parseContent(c)).filter(el => el);
+  if (!doc) return;
 
-    fs.writeFileSync('./processed.json', JSON.stringify(parsed, null, 2) , 'utf-8');
+  fs.writeFileSync('./data.json', JSON.stringify(doc, null, 2) , 'utf-8');
+
+  const body = parseContentArray(doc.body!.content!);
+
+  const footnotes = doc.footnotes && Object.fromEntries(
+    Object.entries(doc.footnotes)
+      .map( ([footnoteId, data]) =>
+        ([footnoteId, parseContentArray(data.content!)])
+      )
+  );
+
+
+  const returnDoc: document = {
+    title: doc.title!,
+    body,
+    ...(footnotes && {footnotes})
   }
+
+  fs.writeFileSync('./processed.json', JSON.stringify(returnDoc, null, 2) , 'utf-8');
+
+  return returnDoc;
 }
