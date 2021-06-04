@@ -20,7 +20,7 @@ export function parseContentArray(contentArray: Array<object>): Array<element> {
   return contentArray.map(c => parseContent(c)).filter(Boolean) as Array<element>;
 }
 
-type document = {
+export type document = {
   readAt: number, //timestamp
   title: string,
   body: Array<element>,
