@@ -1,6 +1,5 @@
 
 import {docs_v1} from "googleapis";
-import * as fs from "fs";
 import matchers from "./element-matchers/default";
 import {element, elementMatcher} from "./element-matchers/types";
 
@@ -28,6 +27,7 @@ type document = {
     [footnoteId: string]: Array<element>
   }
 }
+
 export function parseDoc(doc: docs_v1.Schema$Document, elementMatchers: Array<elementMatcher> | undefined) {
   if (elementMatchers) {
     usingMatchers = elementMatchers;
@@ -35,7 +35,6 @@ export function parseDoc(doc: docs_v1.Schema$Document, elementMatchers: Array<el
 
   if (!doc) return;
 
-  fs.writeFileSync('./data.json', JSON.stringify(doc, null, 2) , 'utf-8');
 
   const body = parseContentArray(doc.body!.content!);
 
@@ -46,14 +45,11 @@ export function parseDoc(doc: docs_v1.Schema$Document, elementMatchers: Array<el
       )
   );
 
-
   const returnDoc: document = {
     title: doc.title!,
     body,
     ...(footnotes && {footnotes})
   }
-
-  fs.writeFileSync('./processed.json', JSON.stringify(returnDoc, null, 2) , 'utf-8');
 
   return returnDoc;
 }
