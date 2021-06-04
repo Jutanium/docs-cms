@@ -21,6 +21,7 @@ export function parseContentArray(contentArray: Array<object>): Array<element> {
 }
 
 type document = {
+  readAt: number, //timestamp
   title: string,
   body: Array<element>,
   footnotes?: {
@@ -35,7 +36,6 @@ export function parseDoc(doc: docs_v1.Schema$Document, elementMatchers: Array<el
 
   if (!doc) return;
 
-
   const body = parseContentArray(doc.body!.content!);
 
   const footnotes = doc.footnotes && Object.fromEntries(
@@ -46,6 +46,7 @@ export function parseDoc(doc: docs_v1.Schema$Document, elementMatchers: Array<el
   );
 
   const returnDoc: document = {
+    readAt: Date.now(),
     title: doc.title!,
     body,
     ...(footnotes && {footnotes})

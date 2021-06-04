@@ -1,4 +1,5 @@
 {
+  "readAt": 1622807626718,
   "title": "Some file",
   "body": [
     {
@@ -237,6 +238,79 @@
     }
   ],
   "footnotes": {
-    "kix.k0lf83wf93jq": []
+    "kix.k0lf83wf93jq": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "styledText",
+            "html": " asdfasdf asdf asdf \n",
+            "css": {
+              "font-size": "10PT"
+            }
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "styledText",
+            "html": "asdfasd f\n",
+            "css": {
+              "font-size": "10PT"
+            }
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "styledText",
+            "html": "asd\n",
+            "css": {
+              "font-size": "10PT"
+            }
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "styledText",
+            "html": "f asd\n",
+            "css": {
+              "font-size": "10PT"
+            }
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "styledText",
+            "html": "f a\n",
+            "css": {
+              "font-size": "10PT"
+            }
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "styledText",
+            "html": "sdf \n",
+            "css": {
+              "font-size": "10PT"
+            }
+          }
+        ]
+      }
+    ]
   }
 }
