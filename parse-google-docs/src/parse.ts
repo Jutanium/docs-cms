@@ -1,6 +1,6 @@
 
 import {docs_v1} from "@googleapis/docs";
-import matchers from "./element-matchers/default";
+import { elementMatchers as matchers } from "./element-matchers/default";
 import {element, elementMatcher} from "./element-matchers/types";
 
 let usingMatchers = matchers;
