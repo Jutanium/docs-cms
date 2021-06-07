@@ -10,6 +10,6 @@
   "author": "Dan Jutan",
   "license": "ISC",
   "dependencies": {
-    "parse-google-docs": "file:../parse-google-docs"
+    "parse-google-docs": "parse-google-docs"
   }
 }
