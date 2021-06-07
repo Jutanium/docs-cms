@@ -1,5 +1,4 @@
 import { getDoc } from "./connect"
-import { parseDoc, document } from "./parse";
-import elementMatchers from "./element-matchers/default"
+import { parseDoc, document} from "./parse";
 
-export { getDoc, parseDoc, document, elementMatchers };
+export { getDoc, parseDoc, document }

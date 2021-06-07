@@ -1,5 +1,5 @@
 import {elementMatcher} from "../types";
-import {docs_v1} from "googleapis";
+import {docs_v1} from "@googleapis/docs";
 
 const htmlReplacements: { [matchProperty: string]: (text: string, value: object) => string } = {
   underline: text => `<u>${text}</u>`,

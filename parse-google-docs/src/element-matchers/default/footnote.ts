@@ -1,7 +1,7 @@
 import {elementMatcher} from "../types";
-import {docs_v1} from "googleapis";
+import {docs_v1} from "@googleapis/docs";
 
-type footnoteReference = {
+export type footnoteReference = {
   type: "footnoteReference",
   footnoteId: string,
   footnoteNumber: number,

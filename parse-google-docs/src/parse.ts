@@ -1,5 +1,5 @@
 
-import {docs_v1} from "googleapis";
+import {docs_v1} from "@googleapis/docs";
 import matchers from "./element-matchers/default";
 import {element, elementMatcher} from "./element-matchers/types";
 
@@ -35,6 +35,8 @@ export function parseDoc(doc: docs_v1.Schema$Document, elementMatchers: Array<el
   }
 
   if (!doc) return;
+
+  console.log("change 3");
 
   const body = parseContentArray(doc.body!.content!);
 

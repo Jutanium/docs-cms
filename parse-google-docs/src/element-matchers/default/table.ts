@@ -1,8 +1,8 @@
 import {element, elementMatcher} from "../types";
 import {paragraph} from "./paragraph";
-import {docs_v1} from "googleapis";
+import {docs_v1} from "@googleapis/docs";
 
-type table = {
+export type table = {
   type: "table",
   rows: Array<Array<number>>,
   cells: Array<Array<element>>

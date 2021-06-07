@@ -1,5 +1,5 @@
 import {element, elementMatcher} from "../types";
-import {docs_v1} from "googleapis";
+import {docs_v1} from "@googleapis/docs";
 import {styledText} from "./text";
 
 type textContent = {
@@ -11,7 +11,7 @@ export type paragraph = {
   type: "paragraph"
 } & textContent;
 
-type header = {
+export type header = {
   type: "header"
   size: number,
 } & textContent

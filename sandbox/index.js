@@ -1,4 +1,4 @@
-import { getDoc, parseDoc } from "../parse-google-docs/dist/index.js";
+import {getDoc, parseDoc} from "parse-google-docs";
 
 import * as fs from "fs";
 const config =
@@ -16,6 +16,7 @@ const config =
   }
 
 const testFile = "13CmnM9JAJJoDsVjPR79og0JTORlUISyAzhxo1K-UeTU"
+
 const doc = await getDoc(config, testFile);
 const parsed = parseDoc(doc);
 console.log(parsed);

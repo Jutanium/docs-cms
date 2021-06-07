@@ -1,21 +1,22 @@
 
-import {docs_v1, drive_v3, google} from "googleapis";
-
+import {docs_v1, docs, auth} from "@googleapis/docs";
+import {drive, drive_v3} from "@googleapis/drive"
 type config = {
   client_email: string,
   private_key: string
 }
 
 function getJWT(config: config) {
+
   const scopes = ["https://www.googleapis.com/auth/documents.readonly", "https://www.googleapis.com/auth/drive.readonly"];
-  return new google.auth.JWT(config.client_email, undefined, config.private_key, scopes);
+  return new auth.JWT(config.client_email, undefined, config.private_key, scopes);
 }
 
 export async function getDoc(config: config, documentId: string): Promise<docs_v1.Schema$Document | undefined> {
   const auth = getJWT(config);
 
   try {
-    const resp = await google.docs({version: "v1"}).documents.get({
+    const resp = await docs({version: "v1"}).documents.get({
       auth,
       documentId
     })
@@ -31,7 +32,7 @@ export async function getFilesInFolder(config: config, folderId: string): Promis
   const auth = getJWT(config);
 
   try {
-    const resp = await google.drive({version: "v3"}).files.list({
+    const resp = await drive({version: "v3"}).files.list({
       auth,
       q: `'${folderId}' in parents`
     });

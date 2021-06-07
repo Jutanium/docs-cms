@@ -1,7 +1,8 @@
 // import { getDoc } from '../src';
 import { getFilesInFolder, getDoc} from "../src/connect";
 import info from "../docsconfig.json";
-import {docs_v1, drive_v3} from "googleapis";
+import {docs_v1} from "@googleapis/docs"
+import {drive_v3} from "@googleapis/drive";
 
 const testFolder = "1N6LOELmhyojRJgaqP1DgfP7s0yJYmCqU";
 const testFile = "13CmnM9JAJJoDsVjPR79og0JTORlUISyAzhxo1K-UeTU"
