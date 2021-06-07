@@ -10,6 +10,16 @@
   "files": [
     "/dist"
   ],
+  "jest": {
+    "transform": {
+      "\\.[jt]sx?$": [
+        "babel-jest",
+        {
+          "rootMode": "upward"
+        }
+      ]
+    }
+  },
   "dependencies": {
     "@babel/plugin-proposal-export-default-from": "^7.12.13",
     "@babel/plugin-transform-runtime": "^7.14.3",
