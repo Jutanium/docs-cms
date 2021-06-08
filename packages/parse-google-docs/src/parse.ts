@@ -36,8 +36,6 @@ export function parseDoc(doc: docs_v1.Schema$Document, elementMatchers: Array<el
 
   if (!doc) return;
 
-  console.log("change 3");
-
   const body = parseContentArray(doc.body!.content!);
 
   const footnotes = doc.footnotes && Object.fromEntries(

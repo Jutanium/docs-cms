@@ -1,5 +1,7 @@
 import {getDoc, parseDoc} from "parse-google-docs";
 
+import {componentsFromDoc} from "google-docs-components";
+
 import * as fs from "fs";
 const config =
   {
@@ -19,5 +21,6 @@ const testFile = "13CmnM9JAJJoDsVjPR79og0JTORlUISyAzhxo1K-UeTU"
 
 const doc = await getDoc(config, testFile);
 const parsed = parseDoc(doc);
-console.log(parsed);
+// console.log(parsed);
+console.log(componentsFromDoc(doc))
 fs.writeFileSync('./processed.json', JSON.stringify(parsed, null, 2) , 'utf-8');
