@@ -3,8 +3,12 @@
   "compilerOptions": {
     "baseUrl": "./packages",
     "paths": {
-      "google-docs-components": ["google-docs-components/src"],
-      "parse-google-docs": ["parse-google-docs/src"],
+      "google-docs-components": [
+        "google-docs-components/src"
+      ],
+      "parse-google-docs": [
+        "parse-google-docs/src"
+      ]
     }
   }
 }
