@@ -1,16 +1,13 @@
 {
   "compilerOptions": {
-    "module": "ES2020",
     "target": "es2015",
     "lib": ["ESNext", "ES2020"],
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
     "declaration": true,
-    "outDir": "./dist/esm",
     "sourceMap": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true
   },
-  "files": ["src/index.ts"]
 }
