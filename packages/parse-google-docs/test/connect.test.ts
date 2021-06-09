@@ -6,15 +6,12 @@ import {drive_v3} from "@googleapis/drive";
 
 const testFolder = "1N6LOELmhyojRJgaqP1DgfP7s0yJYmCqU";
 const testFile = "13CmnM9JAJJoDsVjPR79og0JTORlUISyAzhxo1K-UeTU"
+const noAuthFile = "1f95S0QRRXDTFZi0vIKx_OkB7sTchKeUakixBZQHvL_4"
 
-let returnedFile: docs_v1.Schema$Document | undefined;
-beforeAll(async () => returnedFile = await getDoc(info, testFile));
-
-let returnedFiles: Array<drive_v3.Schema$File> | undefined;
-beforeAll(async () => returnedFiles = await getFilesInFolder(info, testFolder));
 
 describe("getFilesInFolder", () => {
-  test('returns an array of files', async () => {
+  test('returns an array of files when properly authenticated', async () => {
+    const returnedFiles = await getFilesInFolder(info, testFolder)
     const isArray = Array.isArray(returnedFiles);
     expect(isArray).toBeTruthy();
     if (isArray) {
@@ -29,15 +26,22 @@ describe("getFilesInFolder", () => {
 
 
 describe("getDoc", () => {
-  test('returns a document', () => {
+  test('throws error when not properly authenticated', async() => {
+    const badConfig = Object.assign({}, info);
+    badConfig.client_email = "bad";
+    await expect(getDoc(badConfig, testFile)).rejects.toThrow();
+  })
+
+  const testDoc = (info, doc) => (async () => {
+    const returnedFile = await getDoc(info, doc);
     expect(returnedFile).toBeTruthy();
     expect(returnedFile).toEqual(expect.objectContaining({
       title: expect.any(String),
       documentId: expect.any(String),
       body: expect.objectContaining({ content: expect.any(Array)})
     }))
-  })
+  });
 
-
+  test('returns a document when properly authenticated', testDoc(info, testFile));
 
 })
