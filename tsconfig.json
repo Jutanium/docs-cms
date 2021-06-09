@@ -2,6 +2,7 @@
   "extends": "./tsconfig.build.json",
   "compilerOptions": {
     "baseUrl": "./packages",
+    "types": ["jest"],
     "paths": {
       "google-docs-components": [
         "google-docs-components/src"

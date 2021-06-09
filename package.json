@@ -4,5 +4,8 @@
   "workspaces": [
     "packages/*"
   ],
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "devDependencies": {
+    "@types/jest": "^26.0.23"
+  }
 }

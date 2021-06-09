@@ -2506,6 +2506,8 @@ __metadata:
 "docs-cms@workspace:.":
   version: 0.0.0-use.local
   resolution: "docs-cms@workspace:."
+  dependencies:
+    "@types/jest": ^26.0.23
   languageName: unknown
   linkType: soft
 
