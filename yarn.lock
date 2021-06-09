@@ -2904,6 +2904,19 @@ fsevents@^2.3.2:
   languageName: node
   linkType: hard
 
+"google-docs-components@file:../packages/google-docs-components::locator=sandbox%40workspace%3Asandbox":
+  version: 1.0.0
+  resolution: "google-docs-components@file:../packages/google-docs-components#../packages/google-docs-components::hash=ab60fa&locator=sandbox%40workspace%3Asandbox"
+  dependencies:
+    "@babel/plugin-proposal-export-default-from": ^7.12.13
+    "@babel/plugin-transform-runtime": ^7.14.3
+    "@googleapis/docs": ^0.2.0
+    "@googleapis/drive": ^0.3.1
+    parse-google-docs: ^1.0.0
+  checksum: c7ab3a7588d96380ea66d87f79ff3fe1eacee7b5dcb41af0b7e64d491f3145becb82f921e265ce763280cd2b817cb82103f4459359bc8d15e91024df86c767a1
+  languageName: node
+  linkType: hard
+
 "google-docs-components@workspace:packages/google-docs-components":
   version: 0.0.0-use.local
   resolution: "google-docs-components@workspace:packages/google-docs-components"
@@ -4397,10 +4410,24 @@ fsevents@^2.3.2:
     "@googleapis/docs": ^0.2.0
     "@googleapis/drive": ^0.3.1
     "@types/jest": ^26.0.23
+    "@types/node": ^15.12.2
     jest: ^27.0.4
     typescript: ^4.3.2
   languageName: unknown
   linkType: soft
+
+"parse-google-docs@file:../packages/parse-google-docs::locator=sandbox%40workspace%3Asandbox":
+  version: 1.0.0
+  resolution: "parse-google-docs@file:../packages/parse-google-docs#../packages/parse-google-docs::hash=ec8ba2&locator=sandbox%40workspace%3Asandbox"
+  dependencies:
+    "@babel/plugin-proposal-export-default-from": ^7.12.13
+    "@babel/plugin-transform-runtime": ^7.14.3
+    "@babel/runtime": ^7.14.0
+    "@googleapis/docs": ^0.2.0
+    "@googleapis/drive": ^0.3.1
+  checksum: 2a20ad09db372947b7f6bd9042dde0d095632c0df7624547f67dcbe71e06df88afc4f5581869772ab73cd49a1be34d0243c97b3113fe33f9dc94098c9b618255
+  languageName: node
+  linkType: hard
 
 "parse5@npm:6.0.1":
   version: 6.0.1
@@ -4717,6 +4744,15 @@ fsevents@^2.3.2:
   checksum: 549ba83f5b314b59898efe3422120ce1ca7987a6eae5925a5fa5db930dc414d4a9dde0a5594f89638cd6ea60b6840ea961872908933ac2428d1726489db46fa5
   languageName: node
   linkType: hard
+
+"sandbox@workspace:sandbox":
+  version: 0.0.0-use.local
+  resolution: "sandbox@workspace:sandbox"
+  dependencies:
+    google-docs-components: ../packages/google-docs-components
+    parse-google-docs: ../packages/parse-google-docs
+  languageName: unknown
+  linkType: soft
 
 "saxes@npm:^5.0.1":
   version: 5.0.1
