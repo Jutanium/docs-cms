@@ -5,6 +5,7 @@
   "types": "dist/esm/index.d.ts",
   "version": "1.0.0",
   "scripts": {
+    "watch": "tsc -p tsconfig.build.json -w && tsc -p tsconfig.build-cjs.json -w",
     "build": "tsc -p tsconfig.build.json && tsc -p tsconfig.build-cjs.json",
     "test": "jest"
   },

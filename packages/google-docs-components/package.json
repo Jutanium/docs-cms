@@ -5,8 +5,8 @@
   "module": "./dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json && tsc -p tsconfig.build-cjs.json",
-    "prepublish": "npm run tsc"
+    "watch": "tsc -p tsconfig.build.json -w && tsc -p tsconfig.build-cjs.json -w",
+    "build": "tsc -p tsconfig.build.json && tsc -p tsconfig.build-cjs.json"
   },
   "files": [
     "/dist"
