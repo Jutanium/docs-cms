@@ -2917,12 +2917,29 @@ fsevents@^2.3.2:
     "@babel/preset-env": ^7.14.4
     "@babel/preset-typescript": ^7.13.0
     "@babel/runtime": ^7.14.0
+    "@types/jest": ^26.0.23
+    "@types/node": ^15.12.2
+    google-docs-parser: "workspace:*"
+    jest: ^27.0.4
+    typescript: ^4.3.2
+  languageName: unknown
+  linkType: soft
+
+"google-docs-parser@workspace:*, google-docs-parser@workspace:packages/parse-google-docs":
+  version: 0.0.0-use.local
+  resolution: "google-docs-parser@workspace:packages/parse-google-docs"
+  dependencies:
+    "@babel/core": ^7.14.3
+    "@babel/plugin-proposal-export-default-from": ^7.12.13
+    "@babel/plugin-transform-runtime": ^7.14.3
+    "@babel/preset-env": ^7.14.4
+    "@babel/preset-typescript": ^7.13.0
+    "@babel/runtime": ^7.14.0
     "@googleapis/docs": ^0.2.0
     "@googleapis/drive": ^0.3.1
     "@types/jest": ^26.0.23
     "@types/node": ^15.12.2
     jest: ^27.0.4
-    parse-google-docs: ^1.0.0
     typescript: ^4.3.2
   languageName: unknown
   linkType: soft
@@ -4388,25 +4405,6 @@ fsevents@^2.3.2:
   checksum: 20983f3765466c1ab617ed153cb53b70ac5df828d854a3334d185e20b37f436e9096f12bc1b7fc96d8908dc927a3685172d3d89e755774f57b7103460c54dcc5
   languageName: node
   linkType: hard
-
-"parse-google-docs@^1.0.0, parse-google-docs@workspace:packages/parse-google-docs":
-  version: 0.0.0-use.local
-  resolution: "parse-google-docs@workspace:packages/parse-google-docs"
-  dependencies:
-    "@babel/core": ^7.14.3
-    "@babel/plugin-proposal-export-default-from": ^7.12.13
-    "@babel/plugin-transform-runtime": ^7.14.3
-    "@babel/preset-env": ^7.14.4
-    "@babel/preset-typescript": ^7.13.0
-    "@babel/runtime": ^7.14.0
-    "@googleapis/docs": ^0.2.0
-    "@googleapis/drive": ^0.3.1
-    "@types/jest": ^26.0.23
-    "@types/node": ^15.12.2
-    jest: ^27.0.4
-    typescript: ^4.3.2
-  languageName: unknown
-  linkType: soft
 
 "parse5@npm:6.0.1":
   version: 6.0.1

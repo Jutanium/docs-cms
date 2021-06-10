@@ -5,7 +5,9 @@
   "module": "./dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json && tsc -p tsconfig.build-cjs.json"
+    "prepublish": "yarn build",
+    "build": "tsc -p tsconfig.build.json && tsc -p tsconfig.build-cjs.json",
+    "yalc": "yalc push --scripts"
   },
   "files": [
     "/dist"
@@ -21,9 +23,7 @@
     }
   },
   "dependencies": {
-    "@googleapis/docs": "^0.2.0",
-    "@googleapis/drive": "^0.3.1",
-    "google-docs-parser": "^1.0.0"
+    "google-docs-parser": "workspace:*"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",

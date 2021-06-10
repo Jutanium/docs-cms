@@ -5,7 +5,9 @@
   "types": "dist/esm/index.d.ts",
   "version": "1.0.0",
   "scripts": {
+    "prepublish": "yarn build",
     "build": "tsc -p tsconfig.build.json && tsc -p tsconfig.build-cjs.json",
+    "yalc": "yalc push --scripts",
     "test": "jest"
   },
   "files": [
