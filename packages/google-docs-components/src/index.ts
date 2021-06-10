@@ -1,4 +1,4 @@
-import type { document, elementTypes } from "parse-google-docs"
+import type { document, elementTypes } from "google-docs-parser"
 
 export function componentsFromDoc(doc: document) {
   console.log(doc.body);

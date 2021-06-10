@@ -23,7 +23,7 @@
   "dependencies": {
     "@googleapis/docs": "^0.2.0",
     "@googleapis/drive": "^0.3.1",
-    "parse-google-docs": "^1.0.0"
+    "google-docs-parser": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",

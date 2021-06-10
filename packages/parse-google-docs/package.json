@@ -1,5 +1,5 @@
 {
-  "name": "parse-google-docs",
+  "name": "google-docs-parser",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
