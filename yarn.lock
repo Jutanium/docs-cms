@@ -2925,9 +2925,9 @@ fsevents@^2.3.2:
   languageName: unknown
   linkType: soft
 
-"google-docs-parser@workspace:*, google-docs-parser@workspace:packages/parse-google-docs":
+"google-docs-parser@workspace:*, google-docs-parser@workspace:packages/google-docs-parser":
   version: 0.0.0-use.local
-  resolution: "google-docs-parser@workspace:packages/parse-google-docs"
+  resolution: "google-docs-parser@workspace:packages/google-docs-parser"
   dependencies:
     "@babel/core": ^7.14.3
     "@babel/plugin-proposal-export-default-from": ^7.12.13

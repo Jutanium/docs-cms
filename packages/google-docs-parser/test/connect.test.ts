@@ -1,13 +1,9 @@
 // import { getDoc } from '../src';
 import { getFilesInFolder, getDoc} from "../src/connect";
-import info from "../docsconfig.json";
+import info from "./docsconfig.json";
 import {docs_v1} from "@googleapis/docs"
 import {drive_v3} from "@googleapis/drive";
-
-const testFolder = "1N6LOELmhyojRJgaqP1DgfP7s0yJYmCqU";
-const testFile = "13CmnM9JAJJoDsVjPR79og0JTORlUISyAzhxo1K-UeTU"
-const noAuthFile = "1f95S0QRRXDTFZi0vIKx_OkB7sTchKeUakixBZQHvL_4"
-
+import { testFile, testFolder } from "./testFiles";
 
 describe("getFilesInFolder", () => {
   test('returns an array of files when properly authenticated', async () => {
