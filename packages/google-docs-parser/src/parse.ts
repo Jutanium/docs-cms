@@ -4,8 +4,9 @@ import { elementMatchers as matchers } from "./element-matchers/default";
 import {element, elementMatcher} from "./element-matchers/types";
 
 let usingMatchers = matchers;
+
 export function parseContent(obj: any): element | false {
-  const matcher: elementMatcher | undefined = matchers
+  const matcher: elementMatcher | undefined = usingMatchers
           .find(matcher => matcher.matchProperty in obj);
   if (matcher) {
     return matcher.resolve(obj[matcher.matchProperty], parseContent);
@@ -29,7 +30,8 @@ export type document = {
   }
 }
 
-export function parseDoc(doc: docs_v1.Schema$Document, elementMatchers: Array<elementMatcher> | undefined) {
+export function parseDoc(doc: docs_v1.Schema$Document, elementMatchers: Array<elementMatcher> | undefined = undefined) {
+
   if (elementMatchers) {
     usingMatchers = elementMatchers;
   }

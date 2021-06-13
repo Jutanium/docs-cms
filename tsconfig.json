@@ -7,8 +7,8 @@
       "google-docs-components": [
         "google-docs-components/src"
       ],
-      "parse-google-docs": [
-        "parse-google-docs/src"
+      "google-docs-parser": [
+        "google-docs-parser/src"
       ]
     }
   }

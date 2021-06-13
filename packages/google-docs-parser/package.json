@@ -6,7 +6,8 @@
   "version": "1.0.0",
   "scripts": {
     "prepublish": "yarn build",
-    "build": "tsc -p tsconfig.build.json && tsc -p tsconfig.build-cjs.json",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json && tsc -p tsconfig.build-cjs.json",
+    "watch": "watch 'yarn yalc' ./src",
     "yalc": "yalc push --scripts",
     "test": "jest"
   },
@@ -37,6 +38,7 @@
     "@types/jest": "^26.0.23",
     "@types/node": "^15.12.2",
     "jest": "^27.0.4",
-    "typescript": "^4.3.2"
+    "typescript": "^4.3.2",
+    "watch": "^1.0.2"
   }
 }
