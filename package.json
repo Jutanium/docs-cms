@@ -5,7 +5,6 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "yarn workspaces foreach -pt run build",
     "yalc": "yarn workspaces foreach -pt run yalc"
   },
   "version": "1.0.0",

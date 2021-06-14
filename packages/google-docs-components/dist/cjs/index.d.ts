@@ -1,2 +1,3 @@
 import type { document } from "google-docs-parser";
-export declare function componentsFromDoc(doc: document): void;
+import { Config } from "./types";
+export declare function componentsFromDoc(config: Config, doc: document): void;
