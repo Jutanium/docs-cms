@@ -1,4 +1,5 @@
 import { getDoc } from "./connect"
 import { parseDoc, document} from "./parse";
 import type * as elementTypes from "./element-matchers/default"
-export { getDoc, parseDoc, document, elementTypes }
+import type { element} from "./element-matchers/types";
+export { getDoc, parseDoc, document, element, elementTypes }

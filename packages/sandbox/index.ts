@@ -1,13 +1,36 @@
 
 
 import testFileOutput from "./testFileOutput.json"
+import config from "./docsconfig.json"
 
 import { getDoc, parseDoc, document } from "google-docs-parser"
 import { componentsFromDoc } from "google-docs-components";
 import * as fs from "fs";
 
-const document = parseDoc(testFileOutput);
-componentsFromDoc(document);
+const docId = "1SmWpErSKPupCDuq-jeqmIQqRbnz0WhuLKsXmRXLYSvo";
 
-fs.writeFile("document.json", JSON.stringify(document), () => console.log);
+getDoc(config, docId).then(result => {
+  const document = parseDoc(result);
+  fs.writeFile("document.json", JSON.stringify(document), () => console.log);
+  componentsFromDoc({
+    components: [
+      {
+        matchName: ["MyComponent", "My Component"],
+        componentName: "MyComponent",
+        props: {
+          prop1: {
+            type: "number"
+          },
+          prop2: {
+            type: "string"
+          }
+        },
+        slots: {
+          slotExample: {}
+        }
+      }
+    ]
+  }, document);
+})
+
 
