@@ -1,0 +1,36 @@
+[
+  {
+    "definition": {
+      "matchName": [
+        "MyComponent",
+        "My Component"
+      ],
+      "componentName": "MyComponent",
+      "props": {
+        "prop1": {
+          "type": "number"
+        },
+        "prop2": {
+          "type": "string"
+        }
+      },
+      "slots": {
+        "slotExample": {}
+      }
+    },
+    "slots": {
+      "slotExample": [
+        {
+          "tag": "p",
+          "children": [
+            "Asdf <b>asdf\n</b>"
+          ]
+        }
+      ]
+    },
+    "props": {
+      "prop2": "Hi there",
+      "prop1": 2
+    }
+  }
+]

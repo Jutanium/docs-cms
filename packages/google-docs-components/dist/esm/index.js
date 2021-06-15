@@ -10,6 +10,7 @@ export function componentsFromDoc(config, doc) {
                 tag: "p",
                 children: parseContent(paragraph.children),
             };
+            return data;
         }
         if (element.type == "table") {
             const component = componentFromTable(config.components, element, parseContent);
@@ -27,6 +28,7 @@ export function componentsFromDoc(config, doc) {
     if (doc) {
         console.log("hi from here");
         const processed = parseContent(doc.body);
+        return processed;
     }
 }
 //# sourceMappingURL=index.js.map

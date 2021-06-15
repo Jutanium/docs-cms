@@ -12,7 +12,7 @@ const docId = "1SmWpErSKPupCDuq-jeqmIQqRbnz0WhuLKsXmRXLYSvo";
 getDoc(config, docId).then(result => {
   const document = parseDoc(result);
   fs.writeFile("document.json", JSON.stringify(document), () => console.log);
-  componentsFromDoc({
+  const components = componentsFromDoc({
     components: [
       {
         matchName: ["MyComponent", "My Component"],
@@ -31,6 +31,7 @@ getDoc(config, docId).then(result => {
       }
     ]
   }, document);
+  fs.writeFile("components.json", JSON.stringify(components), () => console.log);
 })
 
 

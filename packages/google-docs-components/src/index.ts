@@ -16,6 +16,7 @@ export function componentsFromDoc(config: Config, doc: document) {
         tag: "p",
         children: parseContent(paragraph.children),
       }
+      return data;
     }
 
     if (element.type == "table") {
@@ -37,5 +38,6 @@ export function componentsFromDoc(config: Config, doc: document) {
   if (doc) {
     console.log("hi from here")
     const processed = parseContent(doc.body);
+    return processed;
   }
 }
