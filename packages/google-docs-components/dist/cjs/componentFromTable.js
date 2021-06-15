@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const tableFormatError = message => ({
     error: "TableFormatError",
     message,
@@ -45,7 +47,7 @@ function verifySimpleCell(cell) {
     }
     return { element };
 }
-export default function (componentDefs, table, parseContent) {
+function default_1(componentDefs, table, parseContent) {
     var _a, _b;
     if (table.rows.some(row => row.length > 2)) {
         return tableFormatError("A row in the table has more than two entries");
@@ -112,4 +114,5 @@ export default function (componentDefs, table, parseContent) {
     }
     return returnData;
 }
+exports.default = default_1;
 //# sourceMappingURL=componentFromTable.js.map

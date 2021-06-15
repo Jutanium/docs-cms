@@ -5,21 +5,33 @@ import componentFromTable, {ComponentParseError} from "./componentFromTable";
 export type ParseContent = (element: Array<element>) => Array<ElementData | ComponentData>;
 
 export function componentsFromDoc(config: Config, doc: document) {
-  function processElement (element: element) {
+  function processElement (element: element): ElementData | ComponentData | false {
     if (typeof element == "string") {
       return element;
     }
 
+    if (element.type == "paragraph") {
+      const paragraph = element as elementTypes.paragraph;
+      const data: ElementData = {
+        tag: "p",
+        children: parseContent(paragraph.children),
+      }
+    }
+
     if (element.type == "table") {
       const component = componentFromTable(config.components, element as elementTypes.table, parseContent);
-      console.log(component);
+      console.dir(component);
+      if ("error" in component) {
+        return false;
+      }
       return component;
     }
-    return element;
+
+    return false;
   }
 
   const parseContent: ParseContent = (elements) => {
-    return elements.map(processElement);
+    return elements.map(processElement).filter(Boolean) as Array<ElementData | ComponentData>;
   }
 
   if (doc) {

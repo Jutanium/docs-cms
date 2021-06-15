@@ -1,5 +1,11 @@
-import componentFromTable from "./componentFromTable";
-export function componentsFromDoc(config, doc) {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.componentsFromDoc = void 0;
+const componentFromTable_1 = __importDefault(require("./componentFromTable"));
+function componentsFromDoc(config, doc) {
     function processElement(element) {
         if (typeof element == "string") {
             return element;
@@ -12,7 +18,7 @@ export function componentsFromDoc(config, doc) {
             };
         }
         if (element.type == "table") {
-            const component = componentFromTable(config.components, element, parseContent);
+            const component = componentFromTable_1.default(config.components, element, parseContent);
             console.dir(component);
             if ("error" in component) {
                 return false;
@@ -29,4 +35,5 @@ export function componentsFromDoc(config, doc) {
         const processed = parseContent(doc.body);
     }
 }
+exports.componentsFromDoc = componentsFromDoc;
 //# sourceMappingURL=index.js.map
