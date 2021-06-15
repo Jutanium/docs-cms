@@ -19,10 +19,12 @@ getDoc(config, docId).then(result => {
         componentName: "MyComponent",
         props: {
           prop1: {
-            type: "number"
+            type: "number",
+            required: true
           },
           prop2: {
-            type: "string"
+            type: "string",
+            required: true
           }
         },
         slots: {

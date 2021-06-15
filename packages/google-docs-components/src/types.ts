@@ -14,6 +14,7 @@ export type ElementData = string | {
 export type PropsDef = {
   [propName: string]: {
     type: 'string' | 'number',
+    required?: boolean
     // validator?: ValidatorFunction
   }
 }

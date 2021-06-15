@@ -109,6 +109,15 @@ export default function (componentDefs: Array<ComponentDef>, table: Table,
     }
   }
 
+  const requiredProps = new Set();
+  if (matchingDef.props) {
+    Object.keys(matchingDef.props).forEach(prop => {
+      if (matchingDef.props[prop].required) {
+        requiredProps.add(prop);
+      }
+    });
+  }
+
   const keyValueRows = table.rows.slice(1, defaultSlotIndex > -1 ? defaultSlotIndex : table.rows.length);
 
   if (keyValueRows.length) {
@@ -158,7 +167,13 @@ export default function (componentDefs: Array<ComponentDef>, table: Table,
         returnData.props = {};
       }
       returnData.props[matches.prop] = value;
+      requiredProps.delete(matches.prop);
     }
+  }
+
+  if (requiredProps.size > 0) {
+    const string = Array.from(requiredProps).join(", ");
+    return componentError("Missing required props: " + string);
   }
 
   return returnData;
