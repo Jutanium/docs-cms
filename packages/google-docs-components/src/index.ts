@@ -13,16 +13,26 @@ export function componentsFromDoc(config: Config, doc: document) {
     if (element.type == "paragraph") {
       const paragraph = element as elementTypes.paragraph;
       const data: ElementData = {
-        tag: "p",
+        element: "p",
         children: parseContent(paragraph.children),
+      }
+      return data;
+    }
+
+    if (element.type == "styledText") {
+      const styledText = element as elementTypes.styledText;
+      const data: ElementData = {
+        element: "span",
+        children: [styledText.html],
+        style: styledText.css,
       }
       return data;
     }
 
     if (element.type == "table") {
       const component = componentFromTable(config.components, element as elementTypes.table, parseContent);
-      console.dir(component);
       if ("error" in component) {
+        console.error(component.message);
         return false;
       }
       return component;
@@ -36,7 +46,6 @@ export function componentsFromDoc(config: Config, doc: document) {
   }
 
   if (doc) {
-    console.log("hi from here")
     const processed = parseContent(doc.body);
     return processed;
   }

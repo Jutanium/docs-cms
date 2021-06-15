@@ -95,8 +95,12 @@ export default function (componentDefs: Array<ComponentDef>, table: Table,
 
   const matchingDef = componentDefs.find(def => matchesName(def, title));
 
+  if (!matchingDef) {
+    return tableFormatError(`${title} isn't the name of a registered component`);
+  }
+
   const returnData: ComponentData = {
-    definition: matchingDef
+    component: matchingDef.componentName
   }
 
   const keyValueRows = table.rows.slice(1, slotIndex > -1 ? slotIndex : table.rows.length);
@@ -118,7 +122,6 @@ export default function (componentDefs: Array<ComponentDef>, table: Table,
       }
 
       const valueCell = table.cells[row[1]];
-      console.log("valueCell", valueCell)
       if ("slot" in matches) {
         if (returnData.slots?.[matches.slot]) {
           return invalidPropError(`Slot ${matches.slot} cannot be set twice.`)
@@ -137,8 +140,9 @@ export default function (componentDefs: Array<ComponentDef>, table: Table,
       const verifyValue = verifySimpleCell(valueCell);
 
       if ("errorMessage" in verifyValue) {
-        return invalidPropError(`The value for prop ${matches.prop} is invalid. It ${verifyValue.errorMessage}`);
+        return tableFormatError(`The value cell for prop ${matches.prop} isn't formatted correctly. It ${verifyValue.errorMessage}`);
       }
+
       let value: string | number = parseSimple(verifyValue.element as Paragraph);
       if (matchingDef.props[matches.prop].type == "number") {
         value = Number(value);
@@ -147,7 +151,6 @@ export default function (componentDefs: Array<ComponentDef>, table: Table,
       if (!returnData.props) {
         returnData.props = {};
       }
-      console.log("got to setting prop")
       returnData.props[matches.prop] = value;
     }
   }

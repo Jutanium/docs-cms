@@ -1,24 +1,21 @@
 export declare type ElementData = string | {
-    tag: string;
+    element: string;
     children: Array<ElementData | ComponentData>;
+    style?: {
+        [propertyName: string]: string | number;
+    };
 };
-declare type ValidatorFunction = (value: string) => boolean;
 export declare type PropsDef = {
     [propName: string]: {
         type: 'string' | 'number';
-        validator?: ValidatorFunction;
     };
 };
 export declare type PropsData = {
     [propName: string]: string | number;
 };
 export declare type SlotsDef = {
-    default?: {
-        validator?: ValidatorFunction;
-    };
-    [slotName: string]: {
-        validator?: ValidatorFunction;
-    };
+    default?: {};
+    [slotName: string]: {};
 };
 export declare type SlotsData = {
     default?: Array<ComponentData | ElementData>;
@@ -31,11 +28,10 @@ export declare type ComponentDef = {
     slots?: SlotsDef;
 };
 export declare type ComponentData = {
-    definition: ComponentDef;
+    component: string;
     props?: PropsData;
     slots?: SlotsData;
 };
 export declare type Config = {
     components: Array<ComponentDef>;
 };
-export {};

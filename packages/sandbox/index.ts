@@ -28,6 +28,13 @@ getDoc(config, docId).then(result => {
         slots: {
           slotExample: {}
         }
+      },
+      {
+        matchName: ["Pullquote"],
+        componentName: "Pullquote",
+        slots: {
+          default: {}
+        }
       }
     ]
   }, document);

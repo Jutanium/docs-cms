@@ -1,29 +1,60 @@
 [
   {
-    "definition": {
-      "matchName": [
-        "MyComponent",
-        "My Component"
-      ],
-      "componentName": "MyComponent",
-      "props": {
-        "prop1": {
-          "type": "number"
-        },
-        "prop2": {
-          "type": "string"
+    "element": "p",
+    "children": [
+      "A paragraph before.\n"
+    ]
+  },
+  {
+    "element": "p",
+    "children": [
+      "This one has ",
+      {
+        "element": "span",
+        "children": [
+          "colors "
+        ],
+        "style": {
+          "color": "rgb(100%, 0%, 0%)"
         }
       },
-      "slots": {
-        "slotExample": {}
+      "and stuff.\n"
+    ]
+  },
+  {
+    "element": "p",
+    "children": [
+      {
+        "element": "span",
+        "children": [
+          "This one is all one color.\n"
+        ],
+        "style": {
+          "color": "rgb(29.01961%, 52.54902%, 90.98039%)"
+        }
       }
-    },
+    ]
+  },
+  {
+    "component": "MyComponent",
     "slots": {
       "slotExample": [
         {
-          "tag": "p",
+          "element": "p",
           "children": [
             "Asdf <b>asdf\n</b>"
+          ]
+        },
+        {
+          "element": "p",
+          "children": [
+            "<b>\n</b>"
+          ]
+        },
+        {
+          "element": "p",
+          "children": [
+            "There’s all sorts of stuff in here!\n"
           ]
         }
       ]

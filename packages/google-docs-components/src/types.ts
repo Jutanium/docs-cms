@@ -1,17 +1,20 @@
 
 export type ElementData = string | {
-  tag: string,
-  children: Array<ElementData | ComponentData>
+  element: string,
+  children: Array<ElementData | ComponentData>,
+  style?: {
+    [propertyName: string]: string | number,
+  }
 }
 
-type ValidatorFunction = (value: string) => boolean;
+// type ValidatorFunction = (value: string) => boolean;
 
-//TODO: convertor functions?
+//TODO: validator and convertor functions?
 
 export type PropsDef = {
   [propName: string]: {
     type: 'string' | 'number',
-    validator?: ValidatorFunction
+    // validator?: ValidatorFunction
   }
 }
 
@@ -21,10 +24,10 @@ export type PropsData = {
 
 export type SlotsDef = {
   default?: {
-    validator?: ValidatorFunction
+    // validator?: ValidatorFunction
   },
   [slotName: string]: {
-    validator?: ValidatorFunction
+    // validator?: ValidatorFunction
   }
 }
 
@@ -41,7 +44,7 @@ export type ComponentDef = {
 }
 
 export type ComponentData = {
-  definition: ComponentDef,
+  component: string,
   props?: PropsData
   slots?: SlotsData
 }

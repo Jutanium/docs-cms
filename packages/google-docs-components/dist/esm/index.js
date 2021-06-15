@@ -7,15 +7,24 @@ export function componentsFromDoc(config, doc) {
         if (element.type == "paragraph") {
             const paragraph = element;
             const data = {
-                tag: "p",
+                element: "p",
                 children: parseContent(paragraph.children),
+            };
+            return data;
+        }
+        if (element.type == "styledText") {
+            const styledText = element;
+            const data = {
+                element: "span",
+                children: [styledText.html],
+                style: styledText.css,
             };
             return data;
         }
         if (element.type == "table") {
             const component = componentFromTable(config.components, element, parseContent);
-            console.dir(component);
             if ("error" in component) {
+                console.error(component.message);
                 return false;
             }
             return component;
@@ -26,7 +35,6 @@ export function componentsFromDoc(config, doc) {
         return elements.map(processElement).filter(Boolean);
     };
     if (doc) {
-        console.log("hi from here");
         const processed = parseContent(doc.body);
         return processed;
     }
