@@ -56,6 +56,19 @@
           "children": [
             "There’s all sorts of stuff in here!\n"
           ]
+        },
+        {
+          "component": "Pullquote",
+          "slots": {
+            "default": [
+              {
+                "element": "p",
+                "children": [
+                  "it’s a default slot\n"
+                ]
+              }
+            ]
+          }
         }
       ]
     },

@@ -71,11 +71,6 @@ export default function (componentDefs: Array<ComponentDef>, table: Table,
     return tableFormatError("A row in the table has more than two entries");
   }
 
-  const slotIndex = table.rows.slice(1).findIndex(row => row[0] == row[1]);
-  if (slotIndex > -1 && slotIndex != table.rows.length - 1) {
-    return tableFormatError("There's a default slot (a row with one entry) that isn't the last row")
-  }
-
   const titleCell = table.cells[0];
 
   const verifyTitle = verifySimpleCell(titleCell);
@@ -87,17 +82,34 @@ export default function (componentDefs: Array<ComponentDef>, table: Table,
 
   const title = parseSimple(titleElement as Paragraph);
 
+  console.log("Parsing " + title);
+
   const matchingDef = componentDefs.find(def => matchesName(def, title));
 
   if (!matchingDef) {
-    return tableFormatError(`${title} isn't the name of a registered component`);
+    return componentError(`${title} isn't the name of a registered component`);
   }
+
 
   const returnData: ComponentData = {
     component: matchingDef.componentName
   }
 
-  const keyValueRows = table.rows.slice(1, slotIndex > -1 ? slotIndex : table.rows.length);
+  const isSlot = row => (row.length == 1 || row[0] == row[1]);
+  const defaultSlotIndex = table.rows.findIndex((row,index) => (index > 0) && isSlot(row));
+  if (defaultSlotIndex > -1) {
+    if (defaultSlotIndex != table.rows.length - 1)
+      return tableFormatError("There's a default slot (a row with one entry) that isn't the last row")
+    if (!("default" in matchingDef.slots)) {
+      return componentError(`A default slot was passed, but there was no default slot specified for ${title}`);
+    }
+    const cellIndex = table.rows[defaultSlotIndex][0];
+    returnData.slots = {
+      default: parseContent(table.cells[cellIndex])
+    }
+  }
+
+  const keyValueRows = table.rows.slice(1, defaultSlotIndex > -1 ? defaultSlotIndex : table.rows.length);
 
   if (keyValueRows.length) {
     for (let i = keyValueRows.length - 1; i >= 0; i--) {
