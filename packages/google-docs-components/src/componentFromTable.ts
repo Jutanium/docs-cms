@@ -7,18 +7,12 @@ type Table = elementTypes.table;
 type Paragraph = elementTypes.paragraph;
 
 
-const tableFormatError: (message: string) => ComponentParseError = message => ({
-    error: "TableFormatError",
-    message,
-  });
+const [ invalidPropError, tableFormatError, componentError] = ["InvalidPropError", "TableFormatError", "ComponentError"]
+  .map( (error: Error) => (message: string) => ({ error, message }));
 
-const invalidPropError: (message: string) => ComponentParseError = message => ({
-  error: "InvalidPropError",
-  message,
-});
-
+type Error = "TableFormatError" | "InvalidPropError" | "ComponentError";
 export type ComponentParseError = {
-  error: "TableFormatError" | "InvalidPropError",
+  error: Error,
   message: string,
 }
 
