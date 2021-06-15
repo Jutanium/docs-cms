@@ -29,7 +29,7 @@ function processTextStyle (textStyle: docs_v1.Schema$TextStyle): textCSS {
   const convertColor = (color: docs_v1.Schema$OptionalColor) => {
     if (!color.color) {
       //"Fully transparent color". Not sure how this happens.
-      return "rgb(255,255,255,0)";
+      return "rgba(255,255,255,0)";
     }
     const rgb = color.color!.rgbColor!;
 
