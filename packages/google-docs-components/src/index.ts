@@ -5,6 +5,9 @@ import componentFromTable, {ComponentParseError} from "./componentFromTable";
 export type ParseContent = (element: Array<element>) => Array<ElementData | ComponentData>;
 
 export function componentsFromDoc(config: Config, doc: document) {
+
+  const footnoteMap: { [id: string]: number } = {}
+
   function processElement (element: element): ElementData | ComponentData | false {
     if (typeof element == "string") {
       return element;
@@ -38,6 +41,16 @@ export function componentsFromDoc(config: Config, doc: document) {
       return component;
     }
 
+    if (element.type == "footnoteReference") {
+      const { footnoteNumber, footnoteId } = element as elementTypes.footnoteReference;
+      footnoteMap[footnoteId] = footnoteNumber;
+      return {
+        component: "FootnoteReference",
+        props: {
+          footnoteNumber: footnoteNumber
+        }
+      }
+    }
     return false;
   }
 
@@ -46,7 +59,29 @@ export function componentsFromDoc(config: Config, doc: document) {
   }
 
   if (doc) {
-    const processed = parseContent(doc.body);
-    return processed;
+    const processedBody = parseContent(doc.body);
+
+
+    let processedFootnotes: { [footnoteNumber: number]: Array<ElementData | ComponentData> };
+
+    if (doc.footnotes) {
+      const footnoteContent = (footnoteId) => {
+        const footnote = doc.footnotes[footnoteId];
+        if (!footnote) return false;
+        return parseContent(footnote);
+      }
+      const footnoteEntries = Object.entries(footnoteMap).map(
+        ([footnoteId, footnoteNumber]) => ([footnoteNumber, footnoteContent(footnoteId)])
+      );
+      processedFootnotes = Object.fromEntries(footnoteEntries);
+    }
+
+    return {
+      body: processedBody,
+      title: doc.title,
+      readAt: doc.readAt,
+      ...(processedFootnotes && {footnotes: processedFootnotes})
+    };
+
   }
 }

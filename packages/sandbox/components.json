@@ -1,1 +1,169 @@
-[{"element":"p","children":["A paragraph before.\n"]},{"element":"p","children":["This one has ",{"element":"span","children":["colors "],"style":{"color":"rgb(100%, 0%, 0%)"}},"and stuff.\n"]},{"element":"p","children":[{"element":"span","children":["This one is all one color.\n"],"style":{"color":"rgb(29.01961%, 52.54902%, 90.98039%)"}}]},{"component":"MyComponent","slots":{"slotExample":[{"element":"p","children":["Asdf <b>asdf\n</b>"]},{"element":"p","children":["<b>\n</b>"]},{"element":"p","children":["There’s all sorts of stuff in here!\n"]},{"component":"Pullquote","slots":{"default":[{"element":"p","children":["it’s a default slot\n"]}]}}]},"props":{"prop2":"Hi there","prop1":2}}]
+{
+  "body": [
+    {
+      "element": "p",
+      "children": [
+        "A paragraph before.\n"
+      ]
+    },
+    {
+      "element": "p",
+      "children": [
+        "This one has ",
+        {
+          "element": "span",
+          "children": [
+            "col"
+          ],
+          "style": {
+            "color": "rgb(100%, 0%, 0%)"
+          }
+        },
+        {
+          "component": "FootnoteReference",
+          "props": {
+            "footnoteNumber": 1
+          }
+        },
+        {
+          "element": "span",
+          "children": [
+            "ors "
+          ],
+          "style": {
+            "color": "rgb(100%, 0%, 0%)"
+          }
+        },
+        "and stuff.\n"
+      ]
+    },
+    {
+      "element": "p",
+      "children": [
+        {
+          "element": "span",
+          "children": [
+            "This one is all one color.\n"
+          ],
+          "style": {
+            "color": "rgb(29.01961%, 52.54902%, 90.98039%)"
+          }
+        }
+      ]
+    },
+    {
+      "component": "MyComponent",
+      "slots": {
+        "slotExample": [
+          {
+            "element": "p",
+            "children": [
+              "Asdf <b>asdf\n</b>"
+            ]
+          },
+          {
+            "element": "p",
+            "children": [
+              "<b>\n</b>"
+            ]
+          },
+          {
+            "element": "p",
+            "children": [
+              "There’s all sorts ",
+              {
+                "component": "FootnoteReference",
+                "props": {
+                  "footnoteNumber": 2
+                }
+              },
+              "of stuff in here!\n"
+            ]
+          },
+          {
+            "component": "Pullquote",
+            "slots": {
+              "default": [
+                {
+                  "element": "p",
+                  "children": [
+                    "it’s a default slot\n"
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "props": {
+        "prop2": "Hi there",
+        "prop1": 2
+      }
+    }
+  ],
+  "title": "Components testing",
+  "readAt": 1623809820758,
+  "footnotes": {
+    "1": [
+      {
+        "element": "p",
+        "children": [
+          {
+            "element": "span",
+            "children": [
+              " First footnote.\n"
+            ],
+            "style": {
+              "font-size": "10PT"
+            }
+          }
+        ]
+      }
+    ],
+    "2": [
+      {
+        "element": "p",
+        "children": [
+          {
+            "element": "span",
+            "children": [
+              " A footnote with stuff in it \n"
+            ],
+            "style": {
+              "font-size": "10PT"
+            }
+          }
+        ]
+      },
+      {
+        "element": "p",
+        "children": [
+          {
+            "element": "span",
+            "children": [
+              "Like a paragraph\n"
+            ],
+            "style": {
+              "color": "rgb(100%, 60%, 0%)",
+              "font-size": "10PT"
+            }
+          }
+        ]
+      },
+      {
+        "element": "p",
+        "children": [
+          {
+            "element": "span",
+            "children": [
+              "Etc\n"
+            ],
+            "style": {
+              "font-size": "10PT"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
