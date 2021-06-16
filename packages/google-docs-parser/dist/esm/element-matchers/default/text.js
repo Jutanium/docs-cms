@@ -10,7 +10,7 @@ function processTextStyle(textStyle) {
     const convertColor = (color) => {
         if (!color.color) {
             //"Fully transparent color". Not sure how this happens.
-            return "rgb(255,255,255,0)";
+            return "rgba(255,255,255,0)";
         }
         const rgb = color.color.rgbColor;
         const toPercentage = (color) => {

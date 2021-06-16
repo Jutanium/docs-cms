@@ -1,11 +1,14 @@
 import type { document, element } from "google-docs-parser";
 import { ComponentData, Config, ElementData } from "./types";
-export declare type ParseContent = (element: Array<element>) => Array<ElementData | ComponentData>;
-export declare function componentsFromDoc(config: Config, doc: document): {
+declare type ProcessedContent = Array<ElementData | ComponentData>;
+export declare type ParseContent = (element: Array<element>) => ProcessedContent;
+export declare type ProcessedDocument = {
+    body: ProcessedContent;
     footnotes: {
-        [footnoteNumber: number]: (ElementData | ComponentData)[];
+        [index: number]: ProcessedContent;
     };
-    body: (ElementData | ComponentData)[];
-    title: string;
     readAt: number;
+    title: string;
 };
+export declare function componentsFromDoc(config: Config, doc: document): ProcessedDocument;
+export {};

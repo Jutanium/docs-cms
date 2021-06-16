@@ -2,9 +2,19 @@ import type { document, elementTypes, element } from "google-docs-parser"
 import {ComponentData, Config, ElementData} from "./types";
 import componentFromTable, {ComponentParseError} from "./componentFromTable";
 
-export type ParseContent = (element: Array<element>) => Array<ElementData | ComponentData>;
 
-export function componentsFromDoc(config: Config, doc: document) {
+type ProcessedContent = Array<ElementData | ComponentData>;
+export type ParseContent = (element: Array<element>) => ProcessedContent;
+
+export type ProcessedDocument = {
+  body: ProcessedContent,
+  footnotes: {
+    [index: number]: ProcessedContent
+  },
+  readAt: number,
+  title: string,
+};
+export function componentsFromDoc(config: Config, doc: document): ProcessedDocument {
 
   const footnoteMap: { [id: string]: number } = {}
 
@@ -55,14 +65,14 @@ export function componentsFromDoc(config: Config, doc: document) {
   }
 
   const parseContent: ParseContent = (elements) => {
-    return elements.map(processElement).filter(Boolean) as Array<ElementData | ComponentData>;
+    return elements.map(processElement).filter(Boolean) as ProcessedContent;
   }
 
   if (doc) {
     const processedBody = parseContent(doc.body);
 
 
-    let processedFootnotes: { [footnoteNumber: number]: Array<ElementData | ComponentData> };
+    let processedFootnotes: { [footnoteNumber: number]: ProcessedContent };
 
     if (doc.footnotes) {
       const footnoteContent = (footnoteId) => {
