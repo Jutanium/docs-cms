@@ -1,6 +1,6 @@
 import type { document, element } from "google-docs-parser";
-import { ComponentData, Config, ElementData } from "./types";
-export declare type ProcessedContent = Array<ElementData | ComponentData>;
+import { Config } from "./types";
+import { ProcessedContent } from "./types";
 export declare type ParseContent = (element: Array<element>) => ProcessedContent;
 export declare type ProcessedDocument = {
     body: ProcessedContent;

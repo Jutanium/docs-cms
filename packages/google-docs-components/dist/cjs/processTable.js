@@ -1,3 +1,6 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.verifySimpleCell = exports.parseSimple = void 0;
 const [invalidPropError, tableFormatError, componentError] = ["InvalidPropError", "TableFormatError", "ComponentError"]
     .map((error) => (message) => ({ error, message }));
 function matchesName(componentDef, title) {
@@ -27,6 +30,7 @@ function parseSimple(element) {
         .trim();
     return text;
 }
+exports.parseSimple = parseSimple;
 function verifySimpleCell(cell) {
     var _a;
     if (cell.length != 1) {
@@ -39,7 +43,8 @@ function verifySimpleCell(cell) {
     }
     return { element };
 }
-export default function (componentDefs, table, parseContent) {
+exports.verifySimpleCell = verifySimpleCell;
+function default_1(componentDefs, table, parseContent) {
     var _a, _b;
     if (table.rows.some(row => row.length > 2)) {
         return tableFormatError("A row in the table has more than two entries");
@@ -47,13 +52,18 @@ export default function (componentDefs, table, parseContent) {
     const titleCell = table.cells[0];
     const verifyTitle = verifySimpleCell(titleCell);
     if ("errorMessage" in verifyTitle) {
-        return tableFormatError("The title cell " + verifyTitle.errorMessage);
+        return tableFormatError(`The dev slot or title cell ${verifyTitle.errorMessage})`);
     }
     const titleElement = verifyTitle.element;
     const title = parseSimple(titleElement);
     console.log("Parsing " + title);
     const matchingDef = componentDefs.find(def => matchesName(def, title));
     if (!matchingDef) {
+        if (table.rows.length == 1) {
+            return {
+                slot: title
+            };
+        }
         return componentError(`${title} isn't the name of a registered component`);
     }
     const returnData = {
@@ -130,4 +140,5 @@ export default function (componentDefs, table, parseContent) {
     }
     return returnData;
 }
-//# sourceMappingURL=componentFromTable.js.map
+exports.default = default_1;
+//# sourceMappingURL=processTable.js.map

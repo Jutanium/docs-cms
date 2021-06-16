@@ -1,9 +1,14 @@
+export declare type ContentData = ElementData | ComponentData | DevSlotData;
+export declare type ProcessedContent = Array<ContentData>;
 export declare type ElementData = string | {
     element: string;
-    children: Array<ElementData | ComponentData>;
+    children: ProcessedContent;
     style?: {
         [propertyName: string]: string | number;
     };
+};
+export declare type DevSlotData = {
+    slot: string;
 };
 export declare type PropsDef = {
     [propName: string]: {
@@ -19,8 +24,8 @@ export declare type SlotsDef = {
     [slotName: string]: {};
 };
 export declare type SlotsData = {
-    default?: Array<ComponentData | ElementData>;
-    [propName: string]: Array<ComponentData | ElementData>;
+    default?: ProcessedContent;
+    [propName: string]: ProcessedContent;
 };
 export declare type ComponentDef = {
     matchName: string | Array<string>;

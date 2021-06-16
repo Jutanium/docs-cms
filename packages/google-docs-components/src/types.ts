@@ -1,12 +1,18 @@
 
+export type ContentData = ElementData | ComponentData | DevSlotData;
+export type ProcessedContent = Array<ContentData>;
+
 export type ElementData = string | {
   element: string,
-  children: Array<ElementData | ComponentData>,
+  children: ProcessedContent,
   style?: {
     [propertyName: string]: string | number,
   }
 }
 
+export type DevSlotData = {
+  slot: string,
+}
 // type ValidatorFunction = (value: string) => boolean;
 
 //TODO: validator and convertor functions?
@@ -33,8 +39,8 @@ export type SlotsDef = {
 }
 
 export type SlotsData = {
-  default?: Array<ComponentData | ElementData>,
-  [propName: string]: Array<ComponentData | ElementData>
+  default?: ProcessedContent,
+  [propName: string]: ProcessedContent
 }
 
 export type ComponentDef = {
@@ -43,6 +49,7 @@ export type ComponentDef = {
   props?: PropsDef,
   slots?: SlotsDef
 }
+
 
 export type ComponentData = {
   component: string,

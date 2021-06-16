@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const [invalidPropError, tableFormatError, componentError] = ["InvalidPropError", "TableFormatError", "ComponentError"]
     .map((error) => (message) => ({ error, message }));
 function matchesName(componentDef, title) {
@@ -21,7 +19,7 @@ function matchesPropOrSlot(componentDef, key) {
     }
     return false;
 }
-function parseSimple(element) {
+export function parseSimple(element) {
     let text = element.children[0];
     text = text
         .replace("\n", "")
@@ -29,7 +27,7 @@ function parseSimple(element) {
         .trim();
     return text;
 }
-function verifySimpleCell(cell) {
+export function verifySimpleCell(cell) {
     var _a;
     if (cell.length != 1) {
         return { errorMessage: "must have one piece of content" };
@@ -41,7 +39,7 @@ function verifySimpleCell(cell) {
     }
     return { element };
 }
-function default_1(componentDefs, table, parseContent) {
+export default function (componentDefs, table, parseContent) {
     var _a, _b;
     if (table.rows.some(row => row.length > 2)) {
         return tableFormatError("A row in the table has more than two entries");
@@ -49,13 +47,18 @@ function default_1(componentDefs, table, parseContent) {
     const titleCell = table.cells[0];
     const verifyTitle = verifySimpleCell(titleCell);
     if ("errorMessage" in verifyTitle) {
-        return tableFormatError("The title cell " + verifyTitle.errorMessage);
+        return tableFormatError(`The dev slot or title cell ${verifyTitle.errorMessage})`);
     }
     const titleElement = verifyTitle.element;
     const title = parseSimple(titleElement);
     console.log("Parsing " + title);
     const matchingDef = componentDefs.find(def => matchesName(def, title));
     if (!matchingDef) {
+        if (table.rows.length == 1) {
+            return {
+                slot: title
+            };
+        }
         return componentError(`${title} isn't the name of a registered component`);
     }
     const returnData = {
@@ -132,5 +135,4 @@ function default_1(componentDefs, table, parseContent) {
     }
     return returnData;
 }
-exports.default = default_1;
-//# sourceMappingURL=componentFromTable.js.map
+//# sourceMappingURL=processTable.js.map

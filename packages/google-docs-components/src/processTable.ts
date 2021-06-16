@@ -1,7 +1,8 @@
-import {ComponentData, ComponentDef} from "./types";
+import {ComponentData, ComponentDef, DevSlotData} from "./types";
 
 import {element, elementTypes} from "google-docs-parser"
 import {ParseContent} from "./index";
+import exp from "constants";
 
 type Table = elementTypes.table;
 type Paragraph = elementTypes.paragraph;
@@ -40,7 +41,7 @@ function matchesPropOrSlot(componentDef: ComponentDef, key: string):
   return false;
 }
 
-function parseSimple(element: Paragraph) {
+export function parseSimple(element: Paragraph) {
   let text = element.children[0] as string;
   text = text
     .replace("\n", "")
@@ -49,7 +50,7 @@ function parseSimple(element: Paragraph) {
   return text;
 }
 
-function verifySimpleCell(cell: element[]): {errorMessage: string} | {element: element} {
+export function verifySimpleCell(cell: element[]): {errorMessage: string} | {element: element} {
   if (cell.length != 1) {
     return {errorMessage: "must have one piece of content"}
   }
@@ -63,9 +64,10 @@ function verifySimpleCell(cell: element[]): {errorMessage: string} | {element: e
   return {element};
 }
 
+
 export default function (componentDefs: Array<ComponentDef>, table: Table,
                          parseContent: ParseContent)
-  : ComponentData | ComponentParseError {
+  : ComponentData | DevSlotData | ComponentParseError {
 
   if (table.rows.some(row => row.length > 2)) {
     return tableFormatError("A row in the table has more than two entries");
@@ -75,7 +77,7 @@ export default function (componentDefs: Array<ComponentDef>, table: Table,
 
   const verifyTitle = verifySimpleCell(titleCell);
   if ("errorMessage" in verifyTitle) {
-    return tableFormatError("The title cell " + verifyTitle.errorMessage)
+    return tableFormatError(`The dev slot or title cell ${verifyTitle.errorMessage})`);
   }
 
   const titleElement = verifyTitle.element;
@@ -87,6 +89,11 @@ export default function (componentDefs: Array<ComponentDef>, table: Table,
   const matchingDef = componentDefs.find(def => matchesName(def, title));
 
   if (!matchingDef) {
+    if (table.rows.length == 1) {
+      return {
+        slot: title
+      }
+    }
     return componentError(`${title} isn't the name of a registered component`);
   }
 

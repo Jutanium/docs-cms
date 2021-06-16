@@ -1,4 +1,4 @@
-import componentFromTable from "./componentFromTable";
+import componentFromTable from "./processTable";
 export function componentsFromDoc(config, doc) {
     const footnoteMap = {};
     function processElement(element) {

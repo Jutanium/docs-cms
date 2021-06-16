@@ -1,9 +1,8 @@
 import type { document, elementTypes, element } from "google-docs-parser"
-import {ComponentData, Config, ElementData} from "./types";
-import componentFromTable, {ComponentParseError} from "./componentFromTable";
+import {ComponentData, Config, ContentData, ElementData} from "./types";
+import componentFromTable, {ComponentParseError} from "./processTable";
+import { ProcessedContent} from "./types";
 
-
-export type ProcessedContent = Array<ElementData | ComponentData>;
 export type ParseContent = (element: Array<element>) => ProcessedContent;
 
 export type ProcessedDocument = {
@@ -19,7 +18,7 @@ export function componentsFromDoc(config: Config, doc: document): ProcessedDocum
 
   const footnoteMap: { [id: string]: number } = {}
 
-  function processElement (element: element): ElementData | ComponentData | false {
+  function processElement (element: element): ContentData | false {
     if (typeof element == "string") {
       return element;
     }

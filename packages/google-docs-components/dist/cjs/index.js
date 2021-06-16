@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.componentsFromDoc = void 0;
-const componentFromTable_1 = __importDefault(require("./componentFromTable"));
+const processTable_1 = __importDefault(require("./processTable"));
 function componentsFromDoc(config, doc) {
     const footnoteMap = {};
     function processElement(element) {
@@ -29,7 +29,7 @@ function componentsFromDoc(config, doc) {
             return data;
         }
         if (element.type == "table") {
-            const component = componentFromTable_1.default(config.components, element, parseContent);
+            const component = processTable_1.default(config.components, element, parseContent);
             if ("error" in component) {
                 console.error(component.message);
                 return false;
