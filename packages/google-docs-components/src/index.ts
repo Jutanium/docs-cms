@@ -3,7 +3,7 @@ import {ComponentData, Config, ElementData} from "./types";
 import componentFromTable, {ComponentParseError} from "./componentFromTable";
 
 
-type ProcessedContent = Array<ElementData | ComponentData>;
+export type ProcessedContent = Array<ElementData | ComponentData>;
 export type ParseContent = (element: Array<element>) => ProcessedContent;
 
 export type ProcessedDocument = {
@@ -14,6 +14,7 @@ export type ProcessedDocument = {
   readAt: number,
   title: string,
 };
+
 export function componentsFromDoc(config: Config, doc: document): ProcessedDocument {
 
   const footnoteMap: { [id: string]: number } = {}
