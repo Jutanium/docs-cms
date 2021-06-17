@@ -33,6 +33,23 @@ export async function getDoc(config: config, documentId: string): Promise<docs_v
   }
 }
 
+//Untested and practically useless as there's no way to get the position of the comment within the document
+async function getComments(config: config, documentId: string) {
+  const auth = getJWT(config);
+  if (typeof auth == "string") {
+    throw Error(auth);
+  }
+  try {
+    const resp = await drive({version: "v3"}).comments.list({
+      fileId: documentId,
+      fields: "comments/content, comments/htmlContent, comments/anchor, comments/id"
+    });
+    return resp.data.comments;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function getFilesInFolder(config: config, folderId: string): Promise<Array<drive_v3.Schema$File> | undefined> {
 
   const auth = getJWT(config);
