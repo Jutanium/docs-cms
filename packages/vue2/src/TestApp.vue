@@ -15,8 +15,8 @@
 import Vue from 'vue';
 import Renderer from './components/Renderer';
 import doc from "../../sandbox/components.json"
-import OneSlot from "./components/OneSlot"
-import MyComponent from "./components/MyComponent"
+import OneSlot from "./components/OneSlot.vue"
+import MyComponent from "./components/MyComponent.vue"
 
 export default Vue.extend({
   name: 'App',
