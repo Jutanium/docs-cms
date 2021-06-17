@@ -8,7 +8,8 @@ export default Vue.extend({
   props: {
     content: {
       type: Array as PropType<ProcessedContent>,
-      required: false,
+      required: true,
+      default: () => ([])
     },
     components: {
       type: Object,

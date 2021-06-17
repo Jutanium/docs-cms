@@ -41,6 +41,25 @@ function getDoc(config, documentId) {
     });
 }
 exports.getDoc = getDoc;
+//Untested and practically useless as there's no way to get the position of the comment within the document
+function getComments(config, documentId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const auth = getJWT(config);
+        if (typeof auth == "string") {
+            throw Error(auth);
+        }
+        try {
+            const resp = yield drive_1.drive({ version: "v3" }).comments.list({
+                fileId: documentId,
+                fields: "comments/content, comments/htmlContent, comments/anchor, comments/id"
+            });
+            return resp.data.comments;
+        }
+        catch (error) {
+            throw error;
+        }
+    });
+}
 function getFilesInFolder(config, folderId) {
     return __awaiter(this, void 0, void 0, function* () {
         const auth = getJWT(config);
