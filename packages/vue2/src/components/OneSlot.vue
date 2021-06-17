@@ -1,10 +1,9 @@
 <template>
-$END$
+  <b><slot></slot></b>
 </template>
 
 <script>
 export default {
-name: "OneSlot"
 }
 </script>
 

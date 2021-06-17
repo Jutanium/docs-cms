@@ -8,7 +8,9 @@
     "prepublish": "yarn build",
     "yalc": "yalc push --scripts"
   },
-  "files": ["/dist"],
+  "files": [
+    "/dist"
+  ],
   "dependencies": {
     "google-docs-components": "workspace:*",
     "vue": "^2.6.11"
