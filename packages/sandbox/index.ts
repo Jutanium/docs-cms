@@ -32,8 +32,8 @@ getDoc(config, docId).then(result => {
         }
       },
       {
-        matchName: ["Pullquote"],
-        componentName: "Pullquote",
+        matchName: ["OneSlot"],
+        componentName: "OneSlot",
         slots: {
           default: {}
         }

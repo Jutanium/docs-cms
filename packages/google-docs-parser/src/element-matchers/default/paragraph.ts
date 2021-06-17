@@ -25,7 +25,7 @@ export const paragraphMatcher: elementMatcher = {
       paragraph.elements.map(parseChild).forEach(el => {
         if (!el) return;
 
-        if (el == "\n" || (el as styledText)?.html == "\n") return;
+        if (el == "\n" || (el as styledText)?.text == "\n") return;
 
         const lastAdded = children.length && children[children.length - 1];
         if (typeof lastAdded == "string" && typeof el == "string") {

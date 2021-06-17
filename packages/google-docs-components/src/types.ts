@@ -7,6 +7,9 @@ export type ElementData = string | {
   children: ProcessedContent,
   style?: {
     [propertyName: string]: string | number,
+  },
+  attrs?: {
+    href?: string
   }
 }
 

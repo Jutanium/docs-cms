@@ -5,6 +5,8 @@ import { ProcessedContent} from "./types";
 
 export type ParseContent = (element: Array<element>) => ProcessedContent;
 
+export type { ProcessedContent, ComponentData, ContentData, ElementData, Config };
+
 export type ProcessedDocument = {
   body: ProcessedContent,
   footnotes: {
@@ -34,10 +36,12 @@ export function componentsFromDoc(config: Config, doc: document): ProcessedDocum
 
     if (element.type == "styledText") {
       const styledText = element as elementTypes.styledText;
+      const tag = styledText.link ? "a" : "span";
       const data: ElementData = {
-        element: "span",
-        children: [styledText.html],
+        element: tag,
+        children: [styledText.text],
         style: styledText.css,
+        ...(styledText.link && {attrs: {href: styledText.link}})
       }
       return data;
     }

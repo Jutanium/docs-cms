@@ -15,11 +15,8 @@ export function componentsFromDoc(config, doc) {
         }
         if (element.type == "styledText") {
             const styledText = element;
-            const data = {
-                element: "span",
-                children: [styledText.html],
-                style: styledText.css,
-            };
+            const tag = styledText.link ? "a" : "span";
+            const data = Object.assign({ element: tag, children: [styledText.text], style: styledText.css }, (styledText.link && { attrs: { href: styledText.link } }));
             return data;
         }
         if (element.type == "table") {

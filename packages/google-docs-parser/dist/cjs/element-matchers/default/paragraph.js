@@ -12,7 +12,7 @@ exports.paragraphMatcher = {
                 var _a;
                 if (!el)
                     return;
-                if (el == "\n" || ((_a = el) === null || _a === void 0 ? void 0 : _a.html) == "\n")
+                if (el == "\n" || ((_a = el) === null || _a === void 0 ? void 0 : _a.text) == "\n")
                     return;
                 const lastAdded = children.length && children[children.length - 1];
                 if (typeof lastAdded == "string" && typeof el == "string") {

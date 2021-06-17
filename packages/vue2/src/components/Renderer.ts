@@ -22,7 +22,8 @@ export default Vue.extend({
       }
       if ("element" in data) {
         const nodeData: VNodeData = {
-          ...(data.style && {style: data.style})
+          ...(data.style && {style: data.style}),
+          ...(data.attrs && {attrs: data.attrs})
         }
         return h(data.element, nodeData, fromContentArray(data.children));
       }

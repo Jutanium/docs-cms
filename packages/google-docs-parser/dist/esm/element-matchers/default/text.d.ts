@@ -3,13 +3,16 @@ declare type textCSS = {
     color?: string;
     "background-color"?: string;
     "font-family"?: string;
-    "font-weight"?: number;
+    "font-weight"?: string;
     "font-size"?: string;
+    "font-style"?: string;
+    "text-decoration"?: string;
 };
 export declare type styledText = {
     type: "styledText";
-    html: string;
+    text: string;
     css: textCSS;
+    link?: string;
 };
 export declare const textRunMatcher: elementMatcher;
 export {};

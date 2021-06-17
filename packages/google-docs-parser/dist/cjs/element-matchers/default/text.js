@@ -1,13 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.textRunMatcher = void 0;
-const htmlReplacements = {
-    underline: text => `<u>${text}</u>`,
-    italic: text => `<i>${text}</i>`,
-    bold: text => `<b>${text}</b>`,
-    strikethrough: text => `<s>${text}</s>`,
-    link: (text, linkObj) => `<a href="${linkObj.url}">${text}</a>`
-};
 function processTextStyle(textStyle) {
     const css = {};
     const convertColor = (color) => {
@@ -22,21 +15,33 @@ function processTextStyle(textStyle) {
         };
         return `rgb(${toPercentage(rgb.red)}, ${toPercentage(rgb.green)}, ${toPercentage(rgb.blue)})`;
     };
-    if (textStyle === null || textStyle === void 0 ? void 0 : textStyle.foregroundColor) {
+    if (textStyle.foregroundColor) {
         css.color = convertColor(textStyle.foregroundColor);
     }
-    if (textStyle === null || textStyle === void 0 ? void 0 : textStyle.backgroundColor) {
+    if (textStyle.backgroundColor) {
         css["background-color"] = convertColor(textStyle.backgroundColor);
     }
-    if (textStyle === null || textStyle === void 0 ? void 0 : textStyle.weightedFontFamily) {
+    if (textStyle.bold) {
+        css["font-weight"] = "bold";
+    }
+    if (textStyle.italic) {
+        css["font-style"] = "italic";
+    }
+    if (textStyle.strikethrough) {
+        css["text-decoration"] = "line-through";
+    }
+    if (textStyle.underline) {
+        css["text-decoration"] = "underline";
+    }
+    if (textStyle.weightedFontFamily) {
         const { fontFamily, weight } = textStyle.weightedFontFamily;
         if (fontFamily) {
             css["font-family"] = fontFamily;
             if (weight)
-                css["font-weight"] = weight;
+                css["font-weight"] = String(weight);
         }
     }
-    if (textStyle === null || textStyle === void 0 ? void 0 : textStyle.fontSize) {
+    if (textStyle.fontSize) {
         css["font-size"] = textStyle.fontSize.magnitude + textStyle.fontSize.unit;
     }
     return css;
@@ -51,21 +56,17 @@ exports.textRunMatcher = {
         let html = text.content;
         if (!textStyle)
             return html;
-        Object.keys(htmlReplacements).forEach(key => {
-            if (key in textStyle) {
-                // @ts-ignore
-                html = htmlReplacements[key](html, textStyle[key]);
-            }
-        });
+        // Object.keys(htmlReplacements).forEach(key => {
+        //   if (key in textStyle) {
+        //     // @ts-ignore
+        //     html = htmlReplacements[key](html, textStyle[key]);
+        //   }
+        // })
         const css = processTextStyle(textStyle);
         const hasCSS = Object.keys(css).length;
         if (!hasCSS)
             return html;
-        return {
-            type: "styledText",
-            html,
-            css
-        };
+        return Object.assign({ type: "styledText", text: html, css }, (textStyle.link && { link: textStyle.link.url }));
     }
 };
 //# sourceMappingURL=text.js.map

@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifySimpleCell = exports.parseSimple = void 0;
 const [invalidPropError, tableFormatError, componentError] = ["InvalidPropError", "TableFormatError", "ComponentError"]
     .map((error) => (message) => ({ error, message }));
 function matchesName(componentDef, title) {
@@ -23,27 +22,43 @@ function matchesPropOrSlot(componentDef, key) {
     return false;
 }
 function parseSimple(element) {
-    let text = element.children[0];
+    if (element.children.length != 1) {
+        return false;
+    }
+    const loneChild = element.children[0];
+    let text;
+    if (typeof loneChild == "string") {
+        text = loneChild;
+    }
+    else if ("text" in loneChild) {
+        text = loneChild.text;
+    }
+    else {
+        return false;
+    }
     text = text
         .replace("\n", "")
-        .replace(/<\/?\S>+/g, "")
         .trim();
     return text;
 }
-exports.parseSimple = parseSimple;
 function verifySimpleCell(cell) {
-    var _a;
     if (cell.length != 1) {
-        return { errorMessage: "must have one piece of content" };
+        return { errorMessage: "must have one paragraph of content" };
     }
     const element = cell[0];
-    if (typeof element !== "string" &&
-        ((element === null || element === void 0 ? void 0 : element.type) != "paragraph" || !((_a = element) === null || _a === void 0 ? void 0 : _a.simple))) {
-        return { errorMessage: "must consist of a single, one-line paragraph with no complex formatting" };
+    if (typeof element === "string") {
+        //Probably impossible, as Docs seems to always consider text within a cell as a paragraph
+        return { text: element };
     }
-    return { element };
+    if ((element === null || element === void 0 ? void 0 : element.type) === "paragraph") {
+        const tryToParse = parseSimple(element);
+        if (tryToParse === false) {
+            return { errorMessage: "must consist of a single line with uniform styling." };
+        }
+        return { text: tryToParse };
+    }
+    return { errorMessage: "must consist of a single, one-line paragraph." };
 }
-exports.verifySimpleCell = verifySimpleCell;
 function default_1(componentDefs, table, parseContent) {
     var _a, _b;
     if (table.rows.some(row => row.length > 2)) {
@@ -54,8 +69,7 @@ function default_1(componentDefs, table, parseContent) {
     if ("errorMessage" in verifyTitle) {
         return tableFormatError(`The dev slot or title cell ${verifyTitle.errorMessage})`);
     }
-    const titleElement = verifyTitle.element;
-    const title = parseSimple(titleElement);
+    const title = verifyTitle.text;
     console.log("Parsing " + title);
     const matchingDef = componentDefs.find(def => matchesName(def, title));
     if (!matchingDef) {
@@ -99,8 +113,7 @@ function default_1(componentDefs, table, parseContent) {
             if ("errorMessage" in verifyKey) {
                 return tableFormatError(`Row #${i + 2}'s first cell is a prop or slot key cell. It ${verifyKey.errorMessage}`);
             }
-            const keyElement = verifyKey.element;
-            const keyString = parseSimple(keyElement);
+            const keyString = verifyKey.text;
             const matches = matchesPropOrSlot(matchingDef, keyString);
             if (!matches) {
                 return invalidPropError(`Key ${keyString} on row #${i + 2} doesn't match a prop or slot on component ${matchingDef.componentName}`);
@@ -123,7 +136,7 @@ function default_1(componentDefs, table, parseContent) {
             if ("errorMessage" in verifyValue) {
                 return tableFormatError(`The value cell for prop ${matches.prop} isn't formatted correctly. It ${verifyValue.errorMessage}`);
             }
-            let value = parseSimple(verifyValue.element);
+            let value = verifyValue.text;
             if (matchingDef.props[matches.prop].type == "number") {
                 value = Number(value);
             }

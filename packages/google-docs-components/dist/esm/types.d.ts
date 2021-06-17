@@ -6,6 +6,9 @@ export declare type ElementData = string | {
     style?: {
         [propertyName: string]: string | number;
     };
+    attrs?: {
+        href?: string;
+    };
 };
 export declare type DevSlotData = {
     slot: string;

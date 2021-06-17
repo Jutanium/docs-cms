@@ -38,6 +38,9 @@
       ]
     },
     {
+      "slot": "DevSlot1"
+    },
+    {
       "element": "p",
       "children": [
         {
@@ -58,13 +61,21 @@
           {
             "element": "p",
             "children": [
-              "Asdf <b>asdf\n</b>"
-            ]
-          },
-          {
-            "element": "p",
-            "children": [
-              "<b>\n</b>"
+              "Asdf ",
+              {
+                "element": "a",
+                "children": [
+                  "asdf"
+                ],
+                "style": {
+                  "color": "rgb(6.6666669999999995%, 33.333334%, 80%)",
+                  "font-weight": "bold",
+                  "text-decoration": "underline"
+                },
+                "attrs": {
+                  "href": "https://docs.google.com/document/u/0/d/1VJ8zcBbDL5j8ePzo9-pEi4KOJKdUcdUcJdJNePTqvEs/edit"
+                }
+              }
             ]
           },
           {
@@ -81,7 +92,7 @@
             ]
           },
           {
-            "component": "Pullquote",
+            "component": "OneSlot",
             "slots": {
               "default": [
                 {
@@ -102,7 +113,7 @@
     }
   ],
   "title": "Components testing",
-  "readAt": 1623855433561,
+  "readAt": 1623897465338,
   "footnotes": {
     "1": [
       {
