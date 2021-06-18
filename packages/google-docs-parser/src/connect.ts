@@ -50,7 +50,7 @@ async function getComments(config: config, documentId: string) {
   }
 }
 
-export async function getFilesInFolder(config: config, folderId: string): Promise<Array<drive_v3.Schema$File> | undefined> {
+export async function getFilesInFolder(config: config, folderId: string, params?: object = {}): Promise<Array<drive_v3.Schema$File> | undefined> {
 
   const auth = getJWT(config);
   if (typeof auth == "string") {
@@ -58,10 +58,10 @@ export async function getFilesInFolder(config: config, folderId: string): Promis
   }
 
   try {
-    const resp = await drive({version: "v3"}).files.list({
+    const resp = await drive({version: "v3"}).files.list(Object.assign({
       q: `'${folderId}' in parents`,
       auth
-    });
+    }, params));
     return resp.data.files;
   } catch (error) {
     //More robust error handling TODO
