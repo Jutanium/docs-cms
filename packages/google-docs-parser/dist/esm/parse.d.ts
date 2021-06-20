@@ -1,6 +1,5 @@
 import { docs_v1 } from "@googleapis/docs";
 import { element, elementMatcher } from "./element-matchers/types";
-export declare function parseContent(obj: any): element | false;
 export declare function parseContentArray(contentArray: Array<object>): Array<element>;
 export declare type document = {
     readAt: number;

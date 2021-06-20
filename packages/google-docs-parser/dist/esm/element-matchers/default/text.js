@@ -45,7 +45,7 @@ function processTextStyle(textStyle) {
 }
 export const textRunMatcher = {
     matchProperty: "textRun",
-    resolve(object, parseChild) {
+    resolve(object, parseChildren) {
         const text = object;
         if (!text.content)
             return false;

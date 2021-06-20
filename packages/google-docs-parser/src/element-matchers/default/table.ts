@@ -10,7 +10,7 @@ export type table = {
 
 export const tableMatcher: elementMatcher = {
   matchProperty: "table",
-  resolve(object, parseChild): table | false {
+  resolve(object, parseChildren): table | false {
     const table = object as docs_v1.Schema$Table;
     if (!table.tableRows?.length) return false;
     const cells: Array<Array<element>> = [];
@@ -18,8 +18,7 @@ export const tableMatcher: elementMatcher = {
     table.tableRows.forEach((tableRow, y) => {
         tableRow.tableCells!.forEach((cell, x) => {
 
-          const content = cell.content!.map(c => {
-            const element = parseChild(c);
+          const content = parseChildren(cell.content).map(element => {
             if (typeof element == "object" && "paragraph" in element) {
               const paragraph = (element as paragraph);
               if (paragraph.simple) {
@@ -27,7 +26,7 @@ export const tableMatcher: elementMatcher = {
               }
             }
             return element;
-          }).filter(el => el);
+          })
 
           if (content.length == 0) return;
 

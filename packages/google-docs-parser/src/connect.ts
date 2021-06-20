@@ -50,7 +50,7 @@ async function getComments(config: config, documentId: string) {
   }
 }
 
-export async function getFilesInFolder(config: config, folderId: string, params?: object = {}): Promise<Array<drive_v3.Schema$File> | undefined> {
+export async function getFilesInFolder(config: config, folderId: string, params: object = {}): Promise<Array<drive_v3.Schema$File> | undefined> {
 
   const auth = getJWT(config);
   if (typeof auth == "string") {

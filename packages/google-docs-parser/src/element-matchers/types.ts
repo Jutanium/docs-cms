@@ -1,4 +1,4 @@
-import {parseContent} from "../parse";
+import {parseContentArray} from "../parse";
 
 export type element = {
   type: string
@@ -6,5 +6,5 @@ export type element = {
 
 export type elementMatcher = {
   matchProperty: string,
-  resolve: (object: object, parseChild: typeof parseContent) => element | false
+  resolve: (object: object, parseChildren: typeof parseContentArray) => element | false
 }

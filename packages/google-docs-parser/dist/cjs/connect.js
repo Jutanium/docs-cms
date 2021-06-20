@@ -60,17 +60,17 @@ function getComments(config, documentId) {
         }
     });
 }
-function getFilesInFolder(config, folderId) {
+function getFilesInFolder(config, folderId, params = {}) {
     return __awaiter(this, void 0, void 0, function* () {
         const auth = getJWT(config);
         if (typeof auth == "string") {
             throw Error(auth);
         }
         try {
-            const resp = yield drive_1.drive({ version: "v3" }).files.list({
+            const resp = yield drive_1.drive({ version: "v3" }).files.list(Object.assign({
                 q: `'${folderId}' in parents`,
                 auth
-            });
+            }, params));
             return resp.data.files;
         }
         catch (error) {

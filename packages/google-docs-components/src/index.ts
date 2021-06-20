@@ -69,7 +69,9 @@ export function componentsFromDoc(config: Config, doc: document): ProcessedDocum
   }
 
   const parseContent: ParseContent = (elements) => {
-    return elements.map(processElement).filter(Boolean) as ProcessedContent;
+    if (Array.isArray(elements)) {
+      return elements.map(processElement).filter(Boolean) as ProcessedContent;
+    }
   }
 
   if (doc) {

@@ -18,11 +18,11 @@ export type header = {
 
 export const paragraphMatcher: elementMatcher = {
   matchProperty: "paragraph",
-  resolve(object, parseChild): paragraph | header | false {
+  resolve(object, parseChildren): paragraph | header | false {
     const paragraph = object as docs_v1.Schema$Paragraph;
     if (paragraph.elements) {
       const children: Array<element> = [];
-      paragraph.elements.map(parseChild).forEach(el => {
+      parseChildren(paragraph.elements).forEach(el => {
         if (!el) return;
 
         if (el == "\n" || (el as styledText)?.text == "\n") return;

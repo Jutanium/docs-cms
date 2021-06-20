@@ -1,19 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseDoc = exports.parseContentArray = exports.parseContent = void 0;
+exports.parseDoc = exports.parseContentArray = void 0;
 const default_1 = require("./element-matchers/default");
+const listParsing_1 = require("./listParsing");
 let usingMatchers = default_1.elementMatchers;
 function parseContent(obj) {
     const matcher = usingMatchers
         .find(matcher => matcher.matchProperty in obj);
     if (matcher) {
-        return matcher.resolve(obj[matcher.matchProperty], parseContent);
+        return matcher.resolve(obj[matcher.matchProperty], parseContentArray);
     }
     return Object.assign({ type: "unmatched" }, obj);
 }
-exports.parseContent = parseContent;
 function parseContentArray(contentArray) {
-    return contentArray.map(c => parseContent(c)).filter(Boolean);
+    return listParsing_1.extractLists(contentArray).map(c => parseContent(c)).filter(Boolean);
 }
 exports.parseContentArray = parseContentArray;
 function parseDoc(doc, elementMatchers = undefined) {
@@ -22,6 +22,7 @@ function parseDoc(doc, elementMatchers = undefined) {
     }
     if (!doc)
         return;
+    listParsing_1.registerLists(doc);
     const body = parseContentArray(doc.body.content);
     const footnotes = doc.footnotes && Object.fromEntries(Object.entries(doc.footnotes)
         .map(([footnoteId, data]) => ([footnoteId, parseContentArray(data.content)])));

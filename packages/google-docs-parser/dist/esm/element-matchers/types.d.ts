@@ -1,8 +1,8 @@
-import { parseContent } from "../parse";
+import { parseContentArray } from "../parse";
 export declare type element = {
     type: string;
 } | string;
 export declare type elementMatcher = {
     matchProperty: string;
-    resolve: (object: object, parseChild: typeof parseContent) => element | false;
+    resolve: (object: object, parseChildren: typeof parseContentArray) => element | false;
 };

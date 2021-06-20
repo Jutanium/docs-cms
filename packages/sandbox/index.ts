@@ -10,6 +10,7 @@ import * as fs from "fs";
 const docId = "1SmWpErSKPupCDuq-jeqmIQqRbnz0WhuLKsXmRXLYSvo";
 
 getDoc(config, docId).then(result => {
+  fs.writeFile("rawdoc.json", JSON.stringify(result), console.log);
   const document = parseDoc(result);
   fs.writeFile("document.json", JSON.stringify(document), () => console.log);
   const components = componentsFromDoc({

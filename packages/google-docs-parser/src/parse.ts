@@ -1,24 +1,26 @@
-
 import {docs_v1} from "@googleapis/docs";
-import { elementMatchers as matchers } from "./element-matchers/default";
+import {elementMatchers as matchers} from "./element-matchers/default";
 import {element, elementMatcher} from "./element-matchers/types";
+import {extractLists, registerLists} from "./listParsing";
 
 let usingMatchers = matchers;
 
-export function parseContent(obj: any): element | false {
+
+function parseContent(obj: any): element | false {
   const matcher: elementMatcher | undefined = usingMatchers
-          .find(matcher => matcher.matchProperty in obj);
+    .find(matcher => matcher.matchProperty in obj);
+
   if (matcher) {
-    return matcher.resolve(obj[matcher.matchProperty], parseContent);
+    return matcher.resolve(obj[matcher.matchProperty], parseContentArray);
   }
   return {
     type: "unmatched",
-      ...obj
+    ...obj
   }
 }
 
 export function parseContentArray(contentArray: Array<object>): Array<element> {
-  return contentArray.map(c => parseContent(c)).filter(Boolean) as Array<element>;
+  return extractLists(contentArray).map(c => parseContent(c)).filter(Boolean) as Array<element>;
 }
 
 export type document = {
@@ -38,11 +40,13 @@ export function parseDoc(doc: docs_v1.Schema$Document, elementMatchers: Array<el
 
   if (!doc) return;
 
+  registerLists(doc);
+
   const body = parseContentArray(doc.body!.content!);
 
   const footnotes = doc.footnotes && Object.fromEntries(
     Object.entries(doc.footnotes)
-      .map( ([footnoteId, data]) =>
+      .map(([footnoteId, data]) =>
         ([footnoteId, parseContentArray(data.content!)])
       )
   );

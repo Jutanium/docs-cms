@@ -40,7 +40,9 @@ export function componentsFromDoc(config, doc) {
         return false;
     }
     const parseContent = (elements) => {
-        return elements.map(processElement).filter(Boolean);
+        if (Array.isArray(elements)) {
+            return elements.map(processElement).filter(Boolean);
+        }
     };
     if (doc) {
         const processedBody = parseContent(doc.body);

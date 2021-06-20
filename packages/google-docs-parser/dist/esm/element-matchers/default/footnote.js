@@ -1,6 +1,6 @@
 export const footnoteReferenceMatcher = {
     matchProperty: "footnoteReference",
-    resolve(object, parseChild) {
+    resolve(object, parseChildren) {
         const footnoteReference = object;
         const { footnoteNumber, footnoteId } = footnoteReference;
         if (!(footnoteNumber && footnoteId))

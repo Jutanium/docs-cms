@@ -5,5 +5,5 @@ declare type config = {
     private_key: string;
 };
 export declare function getDoc(config: config, documentId: string): Promise<docs_v1.Schema$Document | undefined>;
-export declare function getFilesInFolder(config: config, folderId: string): Promise<Array<drive_v3.Schema$File> | undefined>;
+export declare function getFilesInFolder(config: config, folderId: string, params?: object): Promise<Array<drive_v3.Schema$File> | undefined>;
 export {};

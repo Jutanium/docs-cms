@@ -8,7 +8,7 @@ export type footnoteReference = {
 }
 export const footnoteReferenceMatcher: elementMatcher = {
   matchProperty: "footnoteReference",
-  resolve(object, parseChild): footnoteReference | false {
+  resolve(object, parseChildren): footnoteReference | false {
     const footnoteReference = object as docs_v1.Schema$FootnoteReference;
     const { footnoteNumber, footnoteId } = footnoteReference;
     if (!(footnoteNumber && footnoteId)) return false;

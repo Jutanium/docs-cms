@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.footnoteReferenceMatcher = void 0;
 exports.footnoteReferenceMatcher = {
     matchProperty: "footnoteReference",
-    resolve(object, parseChild) {
+    resolve(object, parseChildren) {
         const footnoteReference = object;
         const { footnoteNumber, footnoteId } = footnoteReference;
         if (!(footnoteNumber && footnoteId))

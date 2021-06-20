@@ -84,7 +84,7 @@ function processTextStyle (textStyle: docs_v1.Schema$TextStyle): textCSS {
 
 export const textRunMatcher: elementMatcher = {
   matchProperty: "textRun",
-  resolve(object, parseChild): string | styledText | false {
+  resolve(object, parseChildren): string | styledText | false {
     const text = object as docs_v1.Schema$TextRun;
     if (!text.content) return false;
 

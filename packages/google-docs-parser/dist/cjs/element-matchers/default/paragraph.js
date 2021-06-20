@@ -3,12 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.paragraphMatcher = void 0;
 exports.paragraphMatcher = {
     matchProperty: "paragraph",
-    resolve(object, parseChild) {
+    resolve(object, parseChildren) {
         var _a, _b;
         const paragraph = object;
         if (paragraph.elements) {
             const children = [];
-            paragraph.elements.map(parseChild).forEach(el => {
+            parseChildren(paragraph.elements).forEach(el => {
                 var _a;
                 if (!el)
                     return;
