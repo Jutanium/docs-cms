@@ -2,6 +2,7 @@ import {paragraphMatcher, paragraph} from "./paragraph";
 import {textRunMatcher, styledText} from "./text";
 import {tableMatcher, table} from "./table";
 import {footnoteReferenceMatcher, footnoteReference} from "./footnote";
+import {listMatcher, list} from "./list";
 
-export const elementMatchers = [paragraphMatcher, tableMatcher, textRunMatcher, footnoteReferenceMatcher];
-export type { paragraph, styledText, table, footnoteReference }
+export const elementMatchers = [paragraphMatcher, tableMatcher, textRunMatcher, footnoteReferenceMatcher, listMatcher];
+export type { paragraph, styledText, table, footnoteReference, list }

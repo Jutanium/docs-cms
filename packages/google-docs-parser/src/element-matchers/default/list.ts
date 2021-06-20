@@ -22,18 +22,24 @@ export const listMatcher: elementMatcher = {
 
       let i = 0;
       while (i < items.length) {
-        const curr = items[0];
+        const curr = items[i];
         const currDepth = curr.paragraph.bullet.nestingLevel || 0;
         if (currDepth > depth) {
-          const sublistStart = i;
-          let sublistEnd = i + items.slice(i).findIndex(
-            (item, i, arr) => i == arr.length - 1 || item.paragraph.bullet.nestingLevel < currDepth);
-          const sublist = makeList(items.slice(sublistStart, sublistEnd + 1), currDepth);
+
+          let sublistItems = [];
+
+          while (i < items.length && items[i].paragraph.bullet.nestingLevel >= currDepth) {
+            sublistItems.push(items[i]);
+            i++;
+          }
+
+          const sublist = makeList(sublistItems, currDepth);
+
           children.push(sublist);
-          i = sublistEnd + 1;
           continue;
         }
         children.push(curr);
+        i++;
       }
 
       return {
