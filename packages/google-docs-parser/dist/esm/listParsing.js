@@ -6,15 +6,22 @@ export function registerLists(document) {
         }
     }
 }
-export function extractLists(contentArray) {
-    const isListEl = (el) => { var _a; return (_a = el === null || el === void 0 ? void 0 : el.paragraph) === null || _a === void 0 ? void 0 : _a.bullet; };
+export function extractLists(contentArray, depth = -1) {
+    const isListEl = (el) => {
+        var _a;
+        const bullet = (_a = el === null || el === void 0 ? void 0 : el.paragraph) === null || _a === void 0 ? void 0 : _a.bullet;
+        if (!bullet)
+            return false;
+        const elDepth = bullet.nestingLevel || 0;
+        return elDepth > depth;
+    };
     let newArr = [];
     let currList = {};
     const pushCurrList = () => {
         const list = {
             list: {
-                items: currList.items,
-                listProperties: listProperties[currList.listId]
+                items: extractLists(currList.items, depth + 1),
+                properties: listProperties[currList.listId].nestingLevels[depth + 1]
             }
         };
         newArr.push(list);

@@ -7,7 +7,7 @@ let listProperties: {
 
 export type rawList = {
   items: Array<{paragraph: docs_v1.Schema$Paragraph}>,
-  listProperties: docs_v1.Schema$ListProperties
+  properties: docs_v1.Schema$NestingLevel
 }
 
 export function registerLists(document: docs_v1.Schema$Document) {
@@ -18,8 +18,14 @@ export function registerLists(document: docs_v1.Schema$Document) {
   }
 }
 
-export function extractLists(contentArray: Array<object>) {
-  const isListEl = (el) => el?.paragraph?.bullet;
+export function extractLists(contentArray: Array<object>, depth = -1) {
+
+  const isListEl = (el) => {
+    const bullet = el?.paragraph?.bullet;
+    if (!bullet) return false;
+    const elDepth = bullet.nestingLevel || 0;
+    return elDepth > depth;
+  }
 
   let newArr = [];
   let currList: { listId?: string, items?: Array<{paragraph: Schema$Paragraph}> } = {};
@@ -27,8 +33,8 @@ export function extractLists(contentArray: Array<object>) {
   const pushCurrList = () => {
     const list: { list: rawList } = {
       list: {
-        items: currList.items!,
-        listProperties: listProperties[currList.listId]
+        items: extractLists(currList.items!, depth + 1),
+        properties: listProperties[currList.listId].nestingLevels[depth + 1]
       }
     }
     newArr.push(list);

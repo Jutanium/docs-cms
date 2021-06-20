@@ -1,5 +1,5 @@
 import { elementMatchers as matchers } from "./element-matchers/default";
-import { extractLists, registerLists } from "./listParsing";
+import * as listParsing from "./listParsing";
 let usingMatchers = matchers;
 function parseContent(obj) {
     const matcher = usingMatchers
@@ -9,8 +9,9 @@ function parseContent(obj) {
     }
     return Object.assign({ type: "unmatched" }, obj);
 }
-export function parseContentArray(contentArray) {
-    return extractLists(contentArray).map(c => parseContent(c)).filter(Boolean);
+export function parseContentArray(contentArray, extractLists = true) {
+    const array = extractLists ? listParsing.extractLists(contentArray) : contentArray;
+    return array.map(c => parseContent(c)).filter(Boolean);
 }
 export function parseDoc(doc, elementMatchers = undefined) {
     if (elementMatchers) {
@@ -18,7 +19,7 @@ export function parseDoc(doc, elementMatchers = undefined) {
     }
     if (!doc)
         return;
-    registerLists(doc);
+    listParsing.registerLists(doc);
     const body = parseContentArray(doc.body.content);
     const footnotes = doc.footnotes && Object.fromEntries(Object.entries(doc.footnotes)
         .map(([footnoteId, data]) => ([footnoteId, parseContentArray(data.content)])));

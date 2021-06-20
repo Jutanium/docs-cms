@@ -1,5 +1,5 @@
 {
-  "readAt": 1624160998075,
+  "readAt": 1624206554809,
   "title": "Components testing",
   "body": [
     {
@@ -180,212 +180,28 @@
             "ordered": false,
             "items": [
               {
-                "startIndex": 170,
-                "endIndex": 180,
-                "paragraph": {
-                  "elements": [
-                    {
-                      "startIndex": 170,
-                      "endIndex": 180,
-                      "textRun": {
-                        "content": "list here\n",
-                        "textStyle": {
-                          "bold": true
-                        }
-                      }
-                    }
-                  ],
-                  "paragraphStyle": {
-                    "namedStyleType": "NORMAL_TEXT",
-                    "alignment": "START",
-                    "lineSpacing": 100,
-                    "direction": "LEFT_TO_RIGHT",
-                    "spaceAbove": {
-                      "unit": "PT"
-                    },
-                    "spaceBelow": {
-                      "unit": "PT"
-                    },
-                    "borderBetween": {
-                      "color": {},
-                      "width": {
-                        "unit": "PT"
-                      },
-                      "padding": {
-                        "unit": "PT"
-                      },
-                      "dashStyle": "SOLID"
-                    },
-                    "borderTop": {
-                      "color": {},
-                      "width": {
-                        "unit": "PT"
-                      },
-                      "padding": {
-                        "unit": "PT"
-                      },
-                      "dashStyle": "SOLID"
-                    },
-                    "borderBottom": {
-                      "color": {},
-                      "width": {
-                        "unit": "PT"
-                      },
-                      "padding": {
-                        "unit": "PT"
-                      },
-                      "dashStyle": "SOLID"
-                    },
-                    "borderLeft": {
-                      "color": {},
-                      "width": {
-                        "unit": "PT"
-                      },
-                      "padding": {
-                        "unit": "PT"
-                      },
-                      "dashStyle": "SOLID"
-                    },
-                    "borderRight": {
-                      "color": {},
-                      "width": {
-                        "unit": "PT"
-                      },
-                      "padding": {
-                        "unit": "PT"
-                      },
-                      "dashStyle": "SOLID"
-                    },
-                    "indentFirstLine": {
-                      "magnitude": 18,
-                      "unit": "PT"
-                    },
-                    "indentStart": {
-                      "magnitude": 36,
-                      "unit": "PT"
-                    },
-                    "indentEnd": {
-                      "unit": "PT"
-                    },
-                    "keepLinesTogether": false,
-                    "keepWithNext": false,
-                    "avoidWidowAndOrphan": false,
-                    "shading": {
-                      "backgroundColor": {}
-                    }
-                  },
-                  "bullet": {
-                    "listId": "kix.r1jpg0y21jhn",
-                    "textStyle": {
-                      "bold": true,
-                      "underline": false
+                "type": "paragraph",
+                "children": [
+                  {
+                    "type": "styledText",
+                    "text": "list here\n",
+                    "css": {
+                      "font-weight": "bold"
                     }
                   }
-                }
+                ]
               },
               {
-                "startIndex": 180,
-                "endIndex": 183,
-                "paragraph": {
-                  "elements": [
-                    {
-                      "startIndex": 180,
-                      "endIndex": 183,
-                      "textRun": {
-                        "content": "hi\n",
-                        "textStyle": {
-                          "bold": true
-                        }
-                      }
-                    }
-                  ],
-                  "paragraphStyle": {
-                    "namedStyleType": "NORMAL_TEXT",
-                    "alignment": "START",
-                    "lineSpacing": 100,
-                    "direction": "LEFT_TO_RIGHT",
-                    "spaceAbove": {
-                      "unit": "PT"
-                    },
-                    "spaceBelow": {
-                      "unit": "PT"
-                    },
-                    "borderBetween": {
-                      "color": {},
-                      "width": {
-                        "unit": "PT"
-                      },
-                      "padding": {
-                        "unit": "PT"
-                      },
-                      "dashStyle": "SOLID"
-                    },
-                    "borderTop": {
-                      "color": {},
-                      "width": {
-                        "unit": "PT"
-                      },
-                      "padding": {
-                        "unit": "PT"
-                      },
-                      "dashStyle": "SOLID"
-                    },
-                    "borderBottom": {
-                      "color": {},
-                      "width": {
-                        "unit": "PT"
-                      },
-                      "padding": {
-                        "unit": "PT"
-                      },
-                      "dashStyle": "SOLID"
-                    },
-                    "borderLeft": {
-                      "color": {},
-                      "width": {
-                        "unit": "PT"
-                      },
-                      "padding": {
-                        "unit": "PT"
-                      },
-                      "dashStyle": "SOLID"
-                    },
-                    "borderRight": {
-                      "color": {},
-                      "width": {
-                        "unit": "PT"
-                      },
-                      "padding": {
-                        "unit": "PT"
-                      },
-                      "dashStyle": "SOLID"
-                    },
-                    "indentFirstLine": {
-                      "magnitude": 18,
-                      "unit": "PT"
-                    },
-                    "indentStart": {
-                      "magnitude": 36,
-                      "unit": "PT"
-                    },
-                    "indentEnd": {
-                      "unit": "PT"
-                    },
-                    "keepLinesTogether": false,
-                    "keepWithNext": false,
-                    "avoidWidowAndOrphan": false,
-                    "shading": {
-                      "backgroundColor": {}
-                    }
-                  },
-                  "bullet": {
-                    "listId": "kix.r1jpg0y21jhn",
-                    "textStyle": {
-                      "bold": true,
-                      "underline": false
+                "type": "paragraph",
+                "children": [
+                  {
+                    "type": "styledText",
+                    "text": "hi\n",
+                    "css": {
+                      "font-weight": "bold"
                     }
                   }
-                }
+                ]
               }
             ]
           },
@@ -440,147 +256,58 @@
       "ordered": false,
       "items": [
         {
-          "startIndex": 260,
-          "endIndex": 271,
-          "paragraph": {
-            "elements": [
-              {
-                "startIndex": 260,
-                "endIndex": 271,
-                "textRun": {
-                  "content": "One Bullet\n",
-                  "textStyle": {}
-                }
-              }
-            ],
-            "paragraphStyle": {
-              "namedStyleType": "NORMAL_TEXT",
-              "direction": "LEFT_TO_RIGHT",
-              "indentFirstLine": {
-                "magnitude": 18,
-                "unit": "PT"
-              },
-              "indentStart": {
-                "magnitude": 36,
-                "unit": "PT"
-              }
-            },
-            "bullet": {
-              "listId": "kix.5dts8eddpfhx",
-              "textStyle": {
-                "underline": false
-              }
-            }
-          }
+          "type": "paragraph",
+          "children": [
+            "One Bullet\n"
+          ],
+          "simple": true
         },
         {
           "type": "list",
           "ordered": true,
           "items": [
             {
-              "startIndex": 271,
-              "endIndex": 291,
-              "paragraph": {
-                "elements": [
-                  {
-                    "startIndex": 271,
-                    "endIndex": 291,
-                    "textRun": {
-                      "content": "Second level indent\n",
-                      "textStyle": {}
-                    }
-                  }
-                ],
-                "paragraphStyle": {
-                  "namedStyleType": "NORMAL_TEXT",
-                  "direction": "LEFT_TO_RIGHT",
-                  "indentFirstLine": {
-                    "magnitude": 54,
-                    "unit": "PT"
-                  },
-                  "indentStart": {
-                    "magnitude": 72,
-                    "unit": "PT"
-                  }
-                },
-                "bullet": {
-                  "listId": "kix.5dts8eddpfhx",
-                  "nestingLevel": 1,
-                  "textStyle": {
-                    "underline": false
-                  }
+              "type": "paragraph",
+              "children": [
+                "Second level indent\n"
+              ],
+              "simple": true
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                "Another second level indent\n"
+              ],
+              "simple": true
+            },
+            {
+              "type": "list",
+              "ordered": false,
+              "items": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    "Third level indent\n"
+                  ],
+                  "simple": true
                 }
-              }
+              ]
             }
           ]
         },
         {
-          "startIndex": 291,
-          "endIndex": 302,
-          "paragraph": {
-            "elements": [
-              {
-                "startIndex": 291,
-                "endIndex": 302,
-                "textRun": {
-                  "content": "Two Bullet\n",
-                  "textStyle": {}
-                }
-              }
-            ],
-            "paragraphStyle": {
-              "namedStyleType": "NORMAL_TEXT",
-              "direction": "LEFT_TO_RIGHT",
-              "indentFirstLine": {
-                "magnitude": 18,
-                "unit": "PT"
-              },
-              "indentStart": {
-                "magnitude": 36,
-                "unit": "PT"
-              }
-            },
-            "bullet": {
-              "listId": "kix.5dts8eddpfhx",
-              "textStyle": {
-                "underline": false
-              }
-            }
-          }
+          "type": "paragraph",
+          "children": [
+            "Two Bullet\n"
+          ],
+          "simple": true
         },
         {
-          "startIndex": 302,
-          "endIndex": 308,
-          "paragraph": {
-            "elements": [
-              {
-                "startIndex": 302,
-                "endIndex": 308,
-                "textRun": {
-                  "content": "Three\n",
-                  "textStyle": {}
-                }
-              }
-            ],
-            "paragraphStyle": {
-              "namedStyleType": "NORMAL_TEXT",
-              "direction": "LEFT_TO_RIGHT",
-              "indentFirstLine": {
-                "magnitude": 18,
-                "unit": "PT"
-              },
-              "indentStart": {
-                "magnitude": 36,
-                "unit": "PT"
-              }
-            },
-            "bullet": {
-              "listId": "kix.5dts8eddpfhx",
-              "textStyle": {
-                "underline": false
-              }
-            }
-          }
+          "type": "paragraph",
+          "children": [
+            "Three\n"
+          ],
+          "simple": true
         }
       ]
     },
@@ -589,38 +316,11 @@
       "ordered": true,
       "items": [
         {
-          "startIndex": 308,
-          "endIndex": 324,
-          "paragraph": {
-            "elements": [
-              {
-                "startIndex": 308,
-                "endIndex": 324,
-                "textRun": {
-                  "content": "right afterward\n",
-                  "textStyle": {}
-                }
-              }
-            ],
-            "paragraphStyle": {
-              "namedStyleType": "NORMAL_TEXT",
-              "direction": "LEFT_TO_RIGHT",
-              "indentFirstLine": {
-                "magnitude": 18,
-                "unit": "PT"
-              },
-              "indentStart": {
-                "magnitude": 36,
-                "unit": "PT"
-              }
-            },
-            "bullet": {
-              "listId": "kix.mse9soialztb",
-              "textStyle": {
-                "underline": false
-              }
-            }
-          }
+          "type": "paragraph",
+          "children": [
+            "right afterward\n"
+          ],
+          "simple": true
         }
       ]
     }

@@ -1,7 +1,7 @@
 import {docs_v1} from "@googleapis/docs";
-import {elementMatchers as matchers} from "./element-matchers/default";
+import {elementMatchers as matchers, list} from "./element-matchers/default";
 import {element, elementMatcher} from "./element-matchers/types";
-import {extractLists, registerLists} from "./listParsing";
+import * as listParsing from "./listParsing";
 
 let usingMatchers = matchers;
 
@@ -19,8 +19,9 @@ function parseContent(obj: any): element | false {
   }
 }
 
-export function parseContentArray(contentArray: Array<object>): Array<element> {
-  return extractLists(contentArray).map(c => parseContent(c)).filter(Boolean) as Array<element>;
+export function parseContentArray(contentArray: Array<object>, extractLists = true): Array<element> {
+  const array = extractLists ? listParsing.extractLists(contentArray) : contentArray;
+  return array.map(c => parseContent(c)).filter(Boolean) as Array<element>;
 }
 
 export type document = {
@@ -40,7 +41,7 @@ export function parseDoc(doc: docs_v1.Schema$Document, elementMatchers: Array<el
 
   if (!doc) return;
 
-  registerLists(doc);
+  listParsing.registerLists(doc);
 
   const body = parseContentArray(doc.body!.content!);
 
