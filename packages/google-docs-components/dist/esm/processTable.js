@@ -1,4 +1,4 @@
-const [invalidPropError, tableFormatError, componentError] = ["InvalidPropError", "TableFormatError", "ComponentError"]
+const [componentNotFoundError, invalidPropError, tableFormatError, componentError] = ["ComponentNotFoundError", "InvalidPropError", "TableFormatError", "ComponentError"]
     .map((error) => (message) => ({ error, message }));
 function matchesName(componentDef, title) {
     const matchers = Array.isArray(componentDef.matchName) ? componentDef.matchName : [componentDef.matchName];
@@ -60,12 +60,12 @@ function verifySimpleCell(cell) {
 export default function (componentDefs, table, parseContent) {
     var _a, _b;
     if (table.rows.some(row => row.length > 2)) {
-        return tableFormatError("A row in the table has more than two entries");
+        return componentNotFoundError("A row in the table has more than two entries");
     }
     const titleCell = table.cells[0];
     const verifyTitle = verifySimpleCell(titleCell);
     if ("errorMessage" in verifyTitle) {
-        return tableFormatError(`The dev slot or title cell ${verifyTitle.errorMessage})`);
+        return componentNotFoundError(`The dev slot or title cell ${verifyTitle.errorMessage})`);
     }
     const title = verifyTitle.text;
     console.log("Parsing " + title);
@@ -76,7 +76,7 @@ export default function (componentDefs, table, parseContent) {
                 slot: title
             };
         }
-        return componentError(`${title} isn't the name of a registered component`);
+        return componentNotFoundError(`${title} isn't the name of a registered component`);
     }
     const returnData = {
         component: matchingDef.componentName

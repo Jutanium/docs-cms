@@ -1,5 +1,5 @@
 import type { document, elementTypes, element } from "google-docs-parser"
-import {ComponentData, Config, ContentData, ElementData} from "./types";
+import {ComponentData, Config, ContentData, ElementData, TableData} from "./types";
 import componentFromTable, {ComponentParseError} from "./processTable";
 import { ProcessedContent} from "./types";
 
@@ -57,9 +57,17 @@ export function componentsFromDoc(config: Config, doc: document): ProcessedDocum
     }
 
     if (element.type == "table") {
-      const component = componentFromTable(config.components, element as elementTypes.table, parseContent);
+      const table = element as elementTypes.table;
+      const component = componentFromTable(config.components, table, parseContent);
       if ("error" in component) {
         console.error(component.message);
+        if (component.error == "ComponentNotFoundError") {
+          const data: TableData = {
+            rows: table.rows,
+            cells: table.cells.map(parseContent)
+          }
+          return data;
+        }
         return false;
       }
       return component;

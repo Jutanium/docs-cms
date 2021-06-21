@@ -29,9 +29,17 @@ export function componentsFromDoc(config, doc) {
             return data;
         }
         if (element.type == "table") {
-            const component = componentFromTable(config.components, element, parseContent);
+            const table = element;
+            const component = componentFromTable(config.components, table, parseContent);
             if ("error" in component) {
                 console.error(component.message);
+                if (component.error == "ComponentNotFoundError") {
+                    const data = {
+                        rows: table.rows,
+                        cells: table.cells.map(parseContent)
+                    };
+                    return data;
+                }
                 return false;
             }
             return component;

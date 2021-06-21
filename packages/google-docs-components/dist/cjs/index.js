@@ -35,9 +35,17 @@ function componentsFromDoc(config, doc) {
             return data;
         }
         if (element.type == "table") {
-            const component = processTable_1.default(config.components, element, parseContent);
+            const table = element;
+            const component = processTable_1.default(config.components, table, parseContent);
             if ("error" in component) {
                 console.error(component.message);
+                if (component.error == "ComponentNotFoundError") {
+                    const data = {
+                        rows: table.rows,
+                        cells: table.cells.map(parseContent)
+                    };
+                    return data;
+                }
                 return false;
             }
             return component;

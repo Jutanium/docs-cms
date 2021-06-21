@@ -1,6 +1,7 @@
 
-export type ContentData = ElementData | ComponentData | DevSlotData;
+export type ContentData = ElementData | ComponentData | TableData | DevSlotData;
 export type ProcessedContent = Array<ContentData>;
+
 
 export type ElementData = string | {
   element: string,
@@ -11,6 +12,11 @@ export type ElementData = string | {
   attrs?: {
     href?: string
   }
+}
+
+export type TableData = {
+  rows: Array<Array<number>>,
+  cells: Array<ProcessedContent>,
 }
 
 export type DevSlotData = {

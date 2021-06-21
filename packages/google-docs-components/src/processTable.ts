@@ -7,12 +7,12 @@ type Table = elementTypes.table;
 type Paragraph = elementTypes.paragraph;
 
 
-const [ invalidPropError, tableFormatError, componentError] = ["InvalidPropError", "TableFormatError", "ComponentError"]
-  .map( (error: Error) => (message: string) => ({ error, message }));
+const [componentNotFoundError, invalidPropError, tableFormatError, componentError] = ["ComponentNotFoundError", "InvalidPropError", "TableFormatError", "ComponentError"]
+  .map( (error: ComponentParseErrorType) => (message: string) => ({ error, message }));
 
-type Error = "TableFormatError" | "InvalidPropError" | "ComponentError";
+export type ComponentParseErrorType = "TableFormatError" | "InvalidPropError" | "ComponentError" | "ComponentNotFoundError";
 export type ComponentParseError = {
-  error: Error,
+  error: ComponentParseErrorType,
   message: string,
 }
 
@@ -87,14 +87,14 @@ export default function (componentDefs: Array<ComponentDef>, table: Table,
   : ComponentData | DevSlotData | ComponentParseError {
 
   if (table.rows.some(row => row.length > 2)) {
-    return tableFormatError("A row in the table has more than two entries");
+    return componentNotFoundError("A row in the table has more than two entries");
   }
 
   const titleCell = table.cells[0];
 
   const verifyTitle = verifySimpleCell(titleCell);
   if ("errorMessage" in verifyTitle) {
-    return tableFormatError(`The dev slot or title cell ${verifyTitle.errorMessage})`);
+    return componentNotFoundError(`The dev slot or title cell ${verifyTitle.errorMessage})`);
   }
 
   const title = verifyTitle.text;
@@ -109,7 +109,7 @@ export default function (componentDefs: Array<ComponentDef>, table: Table,
         slot: title
       }
     }
-    return componentError(`${title} isn't the name of a registered component`);
+    return componentNotFoundError(`${title} isn't the name of a registered component`);
   }
 
 

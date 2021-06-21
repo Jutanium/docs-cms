@@ -1,4 +1,4 @@
-export declare type ContentData = ElementData | ComponentData | DevSlotData;
+export declare type ContentData = ElementData | ComponentData | TableData | DevSlotData;
 export declare type ProcessedContent = Array<ContentData>;
 export declare type ElementData = string | {
     element: string;
@@ -9,6 +9,10 @@ export declare type ElementData = string | {
     attrs?: {
         href?: string;
     };
+};
+export declare type TableData = {
+    rows: Array<Array<number>>;
+    cells: Array<ProcessedContent>;
 };
 export declare type DevSlotData = {
     slot: string;
