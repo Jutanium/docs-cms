@@ -16,9 +16,28 @@ export function componentsFromDoc(config, doc) {
         if (element.type == "list") {
             const list = element;
             const tag = list.ordered ? "ol" : "ul";
+            const toListItems = (elements) => {
+                const listItems = [];
+                elements.forEach((child) => {
+                    if (listItems.length && (child === null || child === void 0 ? void 0 : child.element) == "ul" || child.element == "ol") {
+                        listItems[listItems.length - 1].children.push(child);
+                        return;
+                    }
+                    if (child.children) {
+                        //Google Docs considers list items as paragraphs, but we don't want that in our html
+                        listItems.push(Object.assign({}, child, { element: "li" }));
+                        return;
+                    }
+                    listItems.push({
+                        element: "li",
+                        children: [child]
+                    });
+                });
+                return listItems;
+            };
             const data = {
                 element: tag,
-                children: parseContent(list.items)
+                children: toListItems(parseContent(list.items))
             };
             return data;
         }
