@@ -34,6 +34,16 @@ export function componentsFromDoc(config: Config, doc: document): ProcessedDocum
       return data;
     }
 
+    if (element.type == "list") {
+      const list = element as elementTypes.list;
+      const tag = list.ordered ? "ol" : "ul";
+      const data: ElementData = {
+        element: tag,
+        children: parseContent(list.items)
+      }
+      return data;
+    }
+
     if (element.type == "styledText") {
       const styledText = element as elementTypes.styledText;
       const tag = styledText.link ? "a" : "span";

@@ -19,6 +19,15 @@ function componentsFromDoc(config, doc) {
             };
             return data;
         }
+        if (element.type == "list") {
+            const list = element;
+            const tag = list.ordered ? "ol" : "ul";
+            const data = {
+                element: tag,
+                children: parseContent(list.items)
+            };
+            return data;
+        }
         if (element.type == "styledText") {
             const styledText = element;
             const tag = styledText.link ? "a" : "span";
