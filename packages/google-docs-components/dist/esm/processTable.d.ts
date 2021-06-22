@@ -1,6 +1,6 @@
 import { ComponentData, ComponentDef, DevSlotData } from "./types";
 import { elementTypes } from "google-docs-parser";
-import { ParseContent } from "./index";
+import { ParseContent } from "./componentsFromDoc";
 declare type Table = elementTypes.table;
 export declare type ComponentParseErrorType = "TableFormatError" | "InvalidPropError" | "ComponentError" | "ComponentNotFoundError";
 export declare type ComponentParseError = {

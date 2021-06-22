@@ -1,7 +1,7 @@
 import {ComponentData, ComponentDef, DevSlotData} from "./types";
 
 import {element, elementTypes} from "google-docs-parser"
-import {ParseContent} from "./index";
+import {ParseContent} from "./componentsFromDoc";
 
 type Table = elementTypes.table;
 type Paragraph = elementTypes.paragraph;

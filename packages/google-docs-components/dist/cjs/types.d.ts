@@ -1,5 +1,13 @@
 export declare type ContentData = ElementData | ComponentData | TableData | DevSlotData;
 export declare type ProcessedContent = Array<ContentData>;
+export declare type ProcessedDocument = {
+    body: ProcessedContent;
+    footnotes: {
+        [index: number]: ProcessedContent;
+    };
+    readAt: number;
+    title: string;
+};
 export declare type ElementData = string | {
     element: string;
     children: ProcessedContent;

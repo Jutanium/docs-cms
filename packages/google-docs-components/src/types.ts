@@ -1,7 +1,14 @@
 
 export type ContentData = ElementData | ComponentData | TableData | DevSlotData;
 export type ProcessedContent = Array<ContentData>;
-
+export type ProcessedDocument = {
+  body: ProcessedContent,
+  footnotes: {
+    [index: number]: ProcessedContent
+  },
+  readAt: number,
+  title: string,
+};
 
 export type ElementData = string | {
   element: string,
