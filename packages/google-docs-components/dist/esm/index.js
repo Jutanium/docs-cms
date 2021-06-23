@@ -1,3 +1,4 @@
 import componentsFromDoc from "./componentsFromDoc";
-export { componentsFromDoc };
+import findSections from "./findSections";
+export { componentsFromDoc, findSections };
 //# sourceMappingURL=index.js.map
