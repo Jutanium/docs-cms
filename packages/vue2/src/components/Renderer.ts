@@ -91,7 +91,7 @@ export default Vue.extend({
       return contentArray.map(data => fromContent(data)).flat(1).filter(Boolean) as Array<VNode>;
     }
 
-    return h("div", fromContentArray(context.props.content));
+    return h("div", context.data, fromContentArray(context.props.content));
   }
 })
 
