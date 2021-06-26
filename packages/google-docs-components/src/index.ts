@@ -6,5 +6,3 @@ import findSections from "./findSections";
 
 export type { ProcessedContent, ComponentData, ContentData, ElementData, TableData, Config };
 export { componentsFromDoc, findSections }
-
-
