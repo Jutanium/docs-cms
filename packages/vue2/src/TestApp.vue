@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Renderer class="pass-through" :content="doc.body" :components="registeredComponents">
+    <Renderer class="pass-through" :ignoreCss="[]" :content="doc.body" :components="registeredComponents">
       <template v-slot:DevSlot1>
         I'm a slot
         <p>
