@@ -33,29 +33,6 @@ export default {
         gridTemplateAreas
       }
     },
-    cellSpans() {
-      const spans = {}
-      for (let y = 0; y < this.numRows; y++) {
-        const row = this.tableData.rows[y];
-        for (let x = 0; x < this.numColumns; x++) {
-          if (row[x] > -1) {
-            if (row[x] in spans) {
-              const span = spans[row[x]];
-              span.rowEnd = y;
-              span.rowStart = y;
-            } else {
-              spans[row[x]] = {
-                rowStart: y,
-                colStart: x,
-                rowEnd: y,
-                colEnd: x
-              }
-            }
-          }
-        }
-      }
-      return spans;
-    }
   },
   methods: {
     cellStyles(index) {
