@@ -1,15 +1,12 @@
 <template>
   <div class="doc-table-root" :style="rootStyles">
-    <div v-for="(_, i) in tableData.cells" :style="cellStyles(i)">
+    <div class="doc-table-cell" v-for="(_, i) in tableData.cells" :style="cellStyles(i)">
       <slot :name="`cell:${i}`"></slot>
     </div>
   </div>
 </template>
 
 <script>
-import Vue, {ComponentOptions, PropType} from "vue"
-import {TableData} from "google-docs-components";
-
 export default {
   name: "DefaultTable",
   props: {
@@ -19,20 +16,24 @@ export default {
     }
   },
   computed: {
-    numRows () {
+    numRows() {
       return this.tableData.rows.length;
     },
-    numColumns () {
+    numColumns() {
       return this.tableData.rows[0].length;
     },
-    rootStyles () {
+    rootStyles() {
+      const gridTemplateAreas = this.tableData.rows.map(row =>
+        `"${row
+            .map(i => `area${i}`)
+            .join(" ")}"`)
+        .join(" ");
       return {
         display: "grid",
-        gridTemplateColumns: `repeat(${this.numColumns}, 1fr)`,
-        gridTemplateRows: `repeat(${this.numRows}, 1fr)`,
+        gridTemplateAreas
       }
     },
-    cellSpans () {
+    cellSpans() {
       const spans = {}
       for (let y = 0; y < this.numRows; y++) {
         const row = this.tableData.rows[y];
@@ -58,16 +59,12 @@ export default {
   },
   methods: {
     cellStyles(index) {
-      const span = this.cellSpans[index];
       return {
-        gridRowStart: span.rowStart,
-        gridRowEnd: span.rowEnd,
-        gridColumnStart: span.rowStart,
-        gridColumnEnd: span.rowEnd
+        gridArea: `area${index}`
       }
     }
   },
-  mounted () {
+  mounted() {
     console.log("table mounted")
   }
 }
