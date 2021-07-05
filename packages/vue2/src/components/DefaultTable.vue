@@ -41,9 +41,6 @@ export default {
       }
     }
   },
-  mounted() {
-    console.log("table mounted")
-  }
 }
 </script>
 
