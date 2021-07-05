@@ -11,11 +11,11 @@ function matchesName(componentDef, title) {
 }
 function matchesPropOrSlot(componentDef, key) {
     const matchesKey = name => name.toLowerCase() == key.toLowerCase();
-    const foundProp = Object.keys(componentDef.props).find(matchesKey);
+    const foundProp = componentDef.props && Object.keys(componentDef.props).find(matchesKey);
     if (foundProp) {
         return { prop: foundProp };
     }
-    const foundSlot = Object.keys(componentDef.slots).find(matchesKey);
+    const foundSlot = componentDef.slots && Object.keys(componentDef.slots).find(matchesKey);
     if (foundSlot) {
         return { slot: foundSlot };
     }
@@ -88,7 +88,7 @@ function default_1(componentDefs, table, parseContent) {
     if (defaultSlotIndex > -1) {
         if (defaultSlotIndex != table.rows.length - 1)
             return tableFormatError("There's a default slot (a row with one entry) that isn't the last row");
-        if (!("default" in matchingDef.slots)) {
+        if (!(matchingDef.slots && "default" in matchingDef.slots)) {
             return componentError(`A default slot was passed, but there was no default slot specified for ${title}`);
         }
         const cellIndex = table.rows[defaultSlotIndex][0];

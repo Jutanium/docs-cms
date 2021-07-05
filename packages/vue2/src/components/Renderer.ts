@@ -25,6 +25,10 @@ export default Vue.extend({
       default: () => (
         /\[\^(\d*[a-zA-z]+\d*)\](?:(.+)\[\/\1\])*/g
       )
+    },
+    ignoreCss: {
+      type: Array as PropType<Array<string>>,
+      default: () => ([])
     }
   },
   render (h, context) {
@@ -65,8 +69,10 @@ export default Vue.extend({
 
       if ("element" in data) {
         const nodeData: VNodeData = {
-          ...(data.style && {style: data.style}),
           ...(data.attrs && {attrs: data.attrs})
+        }
+        if (data.style) {
+          nodeData.style = Object.fromEntries(Object.entries(data.style).filter(([key]) => !(context.props.ignoreCss.includes(key))));
         }
         return h(data.element, nodeData, fromContentArray(data.children));
       }
@@ -107,7 +113,7 @@ export default Vue.extend({
       return contentArray.map(data => fromContent(data)).flat(1).filter(Boolean) as Array<VNode>;
     }
 
-    return h("div", fromContentArray(context.props.content));
+    return h("div", context.data, fromContentArray(context.props.content));
   }
 })
 
