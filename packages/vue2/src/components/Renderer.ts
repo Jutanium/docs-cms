@@ -1,7 +1,7 @@
 
 import Vue, {PropType, VNode, VNodeData} from "vue";
 import { ProcessedContent, ContentData } from "google-docs-components"
-
+import DefaultTable from "./DefaultTable.vue"
 
 export default Vue.extend({
   functional: true,
@@ -14,6 +14,10 @@ export default Vue.extend({
     components: {
       type: Object,
       default: () => ({})
+    },
+    tableComponent: {
+      type: [Object, Boolean],
+      default: () => DefaultTable
     },
     inlineSlotFormat: {
       type: RegExp,
@@ -83,6 +87,15 @@ export default Vue.extend({
           const resolvedSlot = context.scopedSlots[data.slot]({});
           if (resolvedSlot)
             return resolvedSlot;
+        }
+      }
+      if ("rows" in data) {
+        if (typeof context.props.tableComponent == "object") {
+          return h(context.props.tableComponent, {
+            props: {
+              tableData: data
+            }
+          });
         }
       }
       return false;
