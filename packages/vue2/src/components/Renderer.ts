@@ -5,6 +5,7 @@ import DefaultTable from "./DefaultTable.vue"
 
 export default Vue.extend({
   functional: true,
+  name: "Renderer",
   props: {
     content: {
       type: Array as PropType<ProcessedContent>,
@@ -17,7 +18,7 @@ export default Vue.extend({
     },
     tableComponent: {
       type: [Object, Boolean],
-      default: () => DefaultTable
+      default: (): Object => (DefaultTable)
     },
     inlineSlotFormat: {
       type: RegExp,
@@ -91,10 +92,12 @@ export default Vue.extend({
       }
       if ("rows" in data) {
         if (typeof context.props.tableComponent == "object") {
+          const slotsEntries = data.cells.map( (contentData, index) => [`cell:${index}`, () => fromContentArray(contentData)]);
           return h(context.props.tableComponent, {
             props: {
               tableData: data
-            }
+            },
+            scopedSlots: Object.fromEntries(slotsEntries)
           });
         }
       }

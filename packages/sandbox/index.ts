@@ -4,7 +4,7 @@ import testFileOutput from "./testFileOutput.json"
 import config from "./docsconfig.json"
 
 import { getDoc, parseDoc, document } from "google-docs-parser"
-import { componentsFromDoc } from "google-docs-components";
+import { componentsFromDoc, findSections } from "google-docs-components";
 import * as fs from "fs";
 
 const docId = "1SmWpErSKPupCDuq-jeqmIQqRbnz0WhuLKsXmRXLYSvo";
@@ -41,6 +41,12 @@ getDoc(config, docId).then(result => {
       }
     ]
   }, document);
+  const sectionDefs = [
+    {name: "section", start: "Section", endByNextStart: true, endByContentEnd: true},
+    {name: "direction", start: /^(left|right)/, end: "-"}
+  ];
+  const sections = findSections(components.body, sectionDefs);
+  console.log(sections);
   fs.writeFile("components.json", JSON.stringify(components), () => console.log);
 })
 
