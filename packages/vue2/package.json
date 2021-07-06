@@ -4,7 +4,7 @@
   "main": "./dist/docsRenderer.common.js",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name docsRenderer src/components/Renderer.ts",
+    "build": "vue-cli-service build --target lib --name docsRenderer src/exports.ts",
     "prepublish": "yarn build",
     "yalc": "yalc push --scripts"
   },
