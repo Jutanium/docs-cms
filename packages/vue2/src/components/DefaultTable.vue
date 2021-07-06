@@ -25,9 +25,10 @@ export default {
     rootStyles() {
       const gridTemplateAreas = this.tableData.rows.map(row =>
         `"${row
-            .map(i => `area${i}`)
+            .map(i => i == -1 ? '.' : `area${i}`)
             .join(" ")}"`)
         .join(" ");
+      console.log(gridTemplateAreas);
       return {
         display: "grid",
         gridTemplateAreas

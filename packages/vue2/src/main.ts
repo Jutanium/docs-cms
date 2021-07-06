@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import App from './TestApp.vue'
-import Renderer from "@/components/Renderer";
 
 Vue.config.productionTip = false
 
