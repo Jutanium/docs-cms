@@ -34,6 +34,30 @@ function matchesPropOrSlot(componentDef: ComponentDef, key: string):
   if (foundProp) {
     return {prop: foundProp};
   }
+
+  if (componentDef.slots) {
+    if (componentDef.slots === "any") {
+      return {slot: key}
+    }
+    for (const slotDef of componentDef.slots) {
+      if (typeof slotDef === "string") {
+        if (matchesKey(slotDef)) {
+          return {slot: key}
+        }
+        continue;
+      }
+      if (typeof slotDef === "function") {
+        if (slotDef(key)) {
+          return {slot: key}
+        }
+        continue;
+      }
+      if (slotDef.test(key)) {
+        return {slot: key}
+      }
+    }
+  }
+
   const foundSlot = componentDef.slots && Object.keys(componentDef.slots).find(matchesKey);
   if (foundSlot) {
     return {slot: foundSlot};

@@ -45,14 +45,7 @@ export type PropsData = {
   [propName: string]: string | number
 }
 
-export type SlotsDef = {
-  default?: {
-    // validator?: ValidatorFunction
-  },
-  [slotName: string]: {
-    // validator?: ValidatorFunction
-  }
-}
+export type SlotsDef = Array<RegExp | string | ((name: string) => boolean)>;
 
 export type SlotsData = {
   default?: ProcessedContent,
@@ -63,7 +56,7 @@ export type ComponentDef = {
   matchName: string | Array<string>,
   componentName: string,
   props?: PropsDef,
-  slots?: SlotsDef
+  slots?: "any" | SlotsDef
 }
 
 
