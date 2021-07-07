@@ -42,7 +42,7 @@ function matchesPropOrSlot(componentDef: ComponentDef, key: string):
     for (const slotDef of componentDef.slots) {
       if (typeof slotDef === "string") {
         if (matchesKey(slotDef)) {
-          return {slot: key}
+          return {slot: slotDef}
         }
         continue;
       }
