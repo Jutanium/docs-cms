@@ -34,10 +34,7 @@ export declare type PropsDef = {
 export declare type PropsData = {
     [propName: string]: string | number;
 };
-export declare type SlotsDef = {
-    default?: {};
-    [slotName: string]: {};
-};
+export declare type SlotsDef = Array<RegExp | string | ((name: string) => boolean)>;
 export declare type SlotsData = {
     default?: ProcessedContent;
     [propName: string]: ProcessedContent;
@@ -46,7 +43,7 @@ export declare type ComponentDef = {
     matchName: string | Array<string>;
     componentName: string;
     props?: PropsDef;
-    slots?: SlotsDef;
+    slots?: "any" | SlotsDef;
 };
 export declare type ComponentData = {
     component: string;
