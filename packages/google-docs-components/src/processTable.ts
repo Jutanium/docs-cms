@@ -147,9 +147,7 @@ export default function (componentDefs: Array<ComponentDef>, table: Table,
   if (defaultSlotIndex > -1) {
     if (defaultSlotIndex != table.rows.length - 1)
       return tableFormatError("There's a default slot (a row with one entry) that isn't the last row")
-    if (!(matchingDef.slots && "default" in matchingDef.slots)) {
-      return componentError(`A default slot was passed, but there was no default slot specified for ${title}`);
-    }
+
     const cellIndex = table.rows[defaultSlotIndex][0];
     returnData.slots = {
       default: parseContent(table.cells[cellIndex])
