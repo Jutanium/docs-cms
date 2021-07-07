@@ -9,6 +9,7 @@ import * as fs from "fs";
 
 const docId = "1SmWpErSKPupCDuq-jeqmIQqRbnz0WhuLKsXmRXLYSvo";
 
+console.log("https://docs.google.com/document/d/" + docId);
 getDoc(config, docId).then(result => {
   fs.writeFile("rawdoc.json", JSON.stringify(result), console.log);
   const document = parseDoc(result);
@@ -28,16 +29,11 @@ getDoc(config, docId).then(result => {
             required: true
           }
         },
-        slots: {
-          slotExample: {}
-        }
+        slots: "any"
       },
       {
         matchName: ["OneSlot"],
         componentName: "OneSlot",
-        slots: {
-          default: {}
-        }
       }
     ]
   }, document);
