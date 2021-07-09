@@ -1,4 +1,4 @@
-import {ComponentData, ComponentDef, DevSlotData} from "./types";
+import {ComponentData, ComponentDef, DevSlotData, TableData} from "./types";
 
 import {element, elementTypes} from "google-docs-parser"
 import {ParseContent} from "./componentsFromDoc";
@@ -107,39 +107,104 @@ function verifySimpleCell(cell: element[]): {errorMessage: string} | {text: stri
 }
 
 
-export default function (componentDefs: Array<ComponentDef>, table: Table,
-                         parseContent: ParseContent)
-  : ComponentData | DevSlotData | ComponentParseError {
-
+function findComponent(table, componentDefs): {
+  error?: string,
+  component?: ComponentDef,
+  devSlot?: DevSlotData
+} {
   if (table.rows.some(row => row.length > 2)) {
-    return componentNotFoundError("A row in the table has more than two entries");
+    return {error: "A row in the table has more than two entries"}
   }
 
   const titleCell = table.cells[0];
 
   const verifyTitle = verifySimpleCell(titleCell);
   if ("errorMessage" in verifyTitle) {
-    return componentNotFoundError(`The dev slot or title cell ${verifyTitle.errorMessage})`);
+    return {error: `The dev slot or title cell ${verifyTitle.errorMessage})`}
   }
 
   const title = verifyTitle.text;
 
-  console.log("Parsing " + title);
-
   const matchingDef = componentDefs.find(def => matchesName(def, title));
 
-  if (!matchingDef) {
-    if (table.rows.length == 1) {
-      return {
+  if (matchingDef) return {
+    component: matchingDef
+  };
+
+  if (table.rows.length == 1) {
+    return {
+      devSlot: {
         slot: title
       }
     }
-    return componentNotFoundError(`${title} isn't the name of a registered component`);
   }
 
+  return {error: `${title} isn't the name of a registered component`}
+}
+
+export default function (componentDefs: Array<ComponentDef>, inputTable: Table,
+                         parseContent: ParseContent, defaultToTable = true, classProp: string | boolean = false)
+  : ComponentData | TableData | DevSlotData | ComponentParseError {
+
+  const table = Object.assign({}, inputTable);
+
+  let className;
+  //TODO: have other kinds of automatically found props?
+  if (classProp) {
+    const propName = typeof classProp === "string" ? classProp : "class";
+    const isClassPropRow = row => {
+      if (row.length != 2
+        || row.some(index => index < 0)
+        || row[1] - row[0] != 1) {
+        return false;
+      }
+
+      const firstCell = verifySimpleCell(table.cells[row[0]]);
+
+      if ("text" in firstCell) {
+        return firstCell.text.toLowerCase() == propName.toLowerCase();
+      }
+    }
+    const foundRowIndex = table.rows.findIndex(isClassPropRow);
+    const foundRow = table.rows[foundRowIndex];
+    if (foundRow) {
+      const valueCell = verifySimpleCell(table.cells[foundRow[1]]);
+      if ("text" in valueCell) {
+        className = valueCell.text;
+      }
+
+      const cellsRemoved = 2;
+      const decrementedIndices = row => row.map(index => index - cellsRemoved);
+      console.log("before", table.rows, table.cells);
+      table.rows = [...table.rows.slice(0, foundRowIndex), ...table.rows.slice(foundRowIndex + 1).map(decrementedIndices)]
+      table.cells = [...table.cells.slice(0, foundRow[0]), ...table.cells.slice(foundRow[0] + cellsRemoved)];
+      console.log("aften", table.rows, table.cells);
+    }
+  }
+
+  const found = findComponent(table, componentDefs);
+
+  if (found.error) {
+    if (defaultToTable) {
+      const data: TableData = {
+        rows: table.rows,
+        cells: table.cells.map(parseContent),
+        ...(className && {className})
+      }
+      return data;
+    }
+    return componentNotFoundError(found.error);
+  }
+
+  if (found.devSlot) {
+    return found.devSlot;
+  }
+
+  const matchingDef = found.component;
 
   const returnData: ComponentData = {
-    component: matchingDef.componentName
+    component: matchingDef.componentName,
+    ...(className && {className})
   }
 
   const isSlot = row => (row.length == 1 || row[0] == row[1]);

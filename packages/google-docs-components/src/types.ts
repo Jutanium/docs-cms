@@ -24,6 +24,14 @@ export type ElementData = string | {
 export type TableData = {
   rows: Array<Array<number>>,
   cells: Array<ProcessedContent>,
+  className?: string,
+}
+
+export type ComponentData = {
+  component: string,
+  props?: PropsData
+  slots?: SlotsData,
+  className?: string
 }
 
 export type DevSlotData = {
@@ -60,12 +68,8 @@ export type ComponentDef = {
 }
 
 
-export type ComponentData = {
-  component: string,
-  props?: PropsData
-  slots?: SlotsData
-}
 
 export type Config = {
-  components: Array<ComponentDef>
+  components: Array<ComponentDef>,
+  classProp?: boolean | string
 }

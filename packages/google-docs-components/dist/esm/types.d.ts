@@ -21,6 +21,13 @@ export declare type ElementData = string | {
 export declare type TableData = {
     rows: Array<Array<number>>;
     cells: Array<ProcessedContent>;
+    className?: string;
+};
+export declare type ComponentData = {
+    component: string;
+    props?: PropsData;
+    slots?: SlotsData;
+    className?: string;
 };
 export declare type DevSlotData = {
     slot: string;
@@ -45,11 +52,7 @@ export declare type ComponentDef = {
     props?: PropsDef;
     slots?: "any" | SlotsDef;
 };
-export declare type ComponentData = {
-    component: string;
-    props?: PropsData;
-    slots?: SlotsData;
-};
 export declare type Config = {
     components: Array<ComponentDef>;
+    classProp?: boolean | string;
 };

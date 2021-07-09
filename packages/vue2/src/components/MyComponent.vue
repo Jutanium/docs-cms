@@ -3,7 +3,7 @@
     <h4>MyComponent</h4>
     <p>Prop1: {{prop1}}</p>
     <p>Prop2: {{prop2}}</p>
-    <slot name="slotExample"></slot>
+    <slot name="SlotExample"></slot>
   </div>
 </template>
 

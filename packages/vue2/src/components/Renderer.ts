@@ -83,6 +83,9 @@ export default Vue.extend({
         if (data.props) {
           nodeData.props = data.props;
         }
+        if (data.className) {
+          nodeData.class = data.className;
+        }
         if (data.slots) {
           const slotsEntries = Object.entries(data.slots).map( ([slotName, contentData]) => [slotName, () => fromContentArray(contentData)]);
           nodeData.scopedSlots = Object.fromEntries(slotsEntries);
@@ -103,7 +106,8 @@ export default Vue.extend({
             props: {
               tableData: data
             },
-            scopedSlots: Object.fromEntries(slotsEntries)
+            scopedSlots: Object.fromEntries(slotsEntries),
+            ...(data.className && {class: data.className})
           });
         }
       }
