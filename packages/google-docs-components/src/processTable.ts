@@ -153,8 +153,14 @@ export default function (componentDefs: Array<ComponentDef>, inputTable: Table,
   if (classProp) {
     const propName = typeof classProp === "string" ? classProp : "class";
     const isClassPropRow = row => {
-      if (row.length != 2 || row.some(i => i < 0)) return false;
+      if (row.length != 2
+        || row.some(index => index < 0)
+        || row[1] - row[0] != 1) {
+        return false;
+      }
+
       const firstCell = verifySimpleCell(table.cells[row[0]]);
+
       if ("text" in firstCell) {
         return firstCell.text.toLowerCase() == propName.toLowerCase();
       }
@@ -167,7 +173,12 @@ export default function (componentDefs: Array<ComponentDef>, inputTable: Table,
         className = valueCell.text;
       }
 
-      table.rows = [...table.rows.slice(0, foundRowIndex), ...table.rows.slice(foundRowIndex + 1)]
+      const cellsRemoved = 2;
+      const decrementedIndices = row => row.map(index => index - cellsRemoved);
+      console.log("before", table.rows, table.cells);
+      table.rows = [...table.rows.slice(0, foundRowIndex), ...table.rows.slice(foundRowIndex + 1).map(decrementedIndices)]
+      table.cells = [...table.cells.slice(0, foundRow[0]), ...table.cells.slice(foundRow[0] + cellsRemoved)];
+      console.log("aften", table.rows, table.cells);
     }
   }
 
