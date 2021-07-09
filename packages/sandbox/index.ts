@@ -15,6 +15,7 @@ getDoc(config, docId).then(result => {
   const document = parseDoc(result);
   fs.writeFile("document.json", JSON.stringify(document), () => console.log);
   const components = componentsFromDoc({
+    classProp: true,
     components: [
       {
         matchName: ["MyComponent", "My Component"],

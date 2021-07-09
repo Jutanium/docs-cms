@@ -49,16 +49,9 @@ export default function componentsFromDoc(config, doc) {
         }
         if (element.type == "table") {
             const table = element;
-            const component = componentFromTable(config.components, table, parseContent);
+            const component = componentFromTable(config.components, table, parseContent, true, config.classProp);
             if ("error" in component) {
                 console.error(component.message);
-                if (component.error == "ComponentNotFoundError") {
-                    const data = {
-                        rows: table.rows,
-                        cells: table.cells.map(parseContent)
-                    };
-                    return data;
-                }
                 return false;
             }
             return component;

@@ -1,4 +1,4 @@
-import { ComponentData, ComponentDef, DevSlotData } from "./types";
+import { ComponentData, ComponentDef, DevSlotData, TableData } from "./types";
 import { elementTypes } from "google-docs-parser";
 import { ParseContent } from "./componentsFromDoc";
 declare type Table = elementTypes.table;
@@ -7,5 +7,5 @@ export declare type ComponentParseError = {
     error: ComponentParseErrorType;
     message: string;
 };
-export default function (componentDefs: Array<ComponentDef>, table: Table, parseContent: ParseContent): ComponentData | DevSlotData | ComponentParseError;
+export default function (componentDefs: Array<ComponentDef>, inputTable: Table, parseContent: ParseContent, defaultToTable?: boolean, classProp?: string | boolean): ComponentData | TableData | DevSlotData | ComponentParseError;
 export {};

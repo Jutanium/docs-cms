@@ -81,30 +81,68 @@ function verifySimpleCell(cell) {
     }
     return { errorMessage: "must consist of a single, one-line paragraph." };
 }
-function default_1(componentDefs, table, parseContent) {
-    var _a, _b;
+function findComponent(table, componentDefs) {
     if (table.rows.some(row => row.length > 2)) {
-        return componentNotFoundError("A row in the table has more than two entries");
+        return { error: "A row in the table has more than two entries" };
     }
     const titleCell = table.cells[0];
     const verifyTitle = verifySimpleCell(titleCell);
     if ("errorMessage" in verifyTitle) {
-        return componentNotFoundError(`The dev slot or title cell ${verifyTitle.errorMessage})`);
+        return { error: `The dev slot or title cell ${verifyTitle.errorMessage})` };
     }
     const title = verifyTitle.text;
-    console.log("Parsing " + title);
     const matchingDef = componentDefs.find(def => matchesName(def, title));
-    if (!matchingDef) {
-        if (table.rows.length == 1) {
-            return {
+    if (matchingDef)
+        return {
+            component: matchingDef
+        };
+    if (table.rows.length == 1) {
+        return {
+            devSlot: {
                 slot: title
-            };
-        }
-        return componentNotFoundError(`${title} isn't the name of a registered component`);
+            }
+        };
     }
-    const returnData = {
-        component: matchingDef.componentName
-    };
+    return { error: `${title} isn't the name of a registered component` };
+}
+function default_1(componentDefs, inputTable, parseContent, defaultToTable = true, classProp = false) {
+    var _a, _b;
+    const table = Object.assign({}, inputTable);
+    let className;
+    //TODO: have other kinds of automatically found props?
+    if (classProp) {
+        const propName = typeof classProp === "string" ? classProp : "class";
+        const isClassPropRow = row => {
+            if (row.length != 2 || row.some(i => i < 0))
+                return false;
+            const firstCell = verifySimpleCell(table.cells[row[0]]);
+            if ("text" in firstCell) {
+                return firstCell.text.toLowerCase() == propName.toLowerCase();
+            }
+        };
+        const foundRowIndex = table.rows.findIndex(isClassPropRow);
+        const foundRow = table.rows[foundRowIndex];
+        if (foundRow) {
+            const valueCell = verifySimpleCell(table.cells[foundRow[1]]);
+            if ("text" in valueCell) {
+                className = valueCell.text;
+            }
+            table.rows = [...table.rows.slice(0, foundRowIndex), ...table.rows.slice(foundRowIndex + 1)];
+        }
+    }
+    const found = findComponent(table, componentDefs);
+    if (found.error) {
+        if (defaultToTable) {
+            const data = Object.assign({ rows: table.rows, cells: table.cells.map(parseContent) }, (className && { className }));
+            return data;
+        }
+        return componentNotFoundError(found.error);
+    }
+    if (found.devSlot) {
+        return found.devSlot;
+    }
+    const matchingDef = found.component;
+    const returnData = Object.assign({ component: matchingDef.componentName }, (className && { className }));
     const isSlot = row => (row.length == 1 || row[0] == row[1]);
     const defaultSlotIndex = table.rows.findIndex((row, index) => (index > 0) && isSlot(row));
     if (defaultSlotIndex > -1) {
