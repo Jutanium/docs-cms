@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <Renderer class="pass-through" :ignoreCss="[]" :content="doc.body" :components="registeredComponents">
+    <Renderer class="pass-through" :ignoreCss="[]" :content="doc.body" :components="registeredComponents"
+              :element-classes="{p: [{hi: true}, 'there']}"
+      >
       <template v-slot:DevSlot1>
         I'm a slot
         <p>
@@ -33,5 +35,13 @@ export default Vue.extend({
 });
 </script>
 
-<style>
+<style scoped>
+
+.pass-through >>> .hi {
+  font-family: sans-serif;
+}
+.pass-through >>> .there {
+  font-size: 16pt;
+}
+
 </style>

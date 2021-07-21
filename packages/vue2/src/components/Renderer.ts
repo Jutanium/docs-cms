@@ -2,6 +2,7 @@
 import Vue, {PropType, VNode, VNodeData} from "vue";
 import { ProcessedContent, ContentData } from "google-docs-components"
 import DefaultTable from "./DefaultTable.vue"
+import {element} from "google-docs-parser";
 
 export default Vue.extend({
   functional: true,
@@ -29,6 +30,10 @@ export default Vue.extend({
     ignoreCss: {
       type: Array as PropType<Array<string>>,
       default: () => ([])
+    },
+    elementClasses: {
+      type: Object as PropType<{[element: string]: string | object | Array<string | object>}>,
+      default: () => ({}),
     }
   },
   render (h, context) {
@@ -73,6 +78,9 @@ export default Vue.extend({
         }
         if (data.style) {
           nodeData.style = Object.fromEntries(Object.entries(data.style).filter(([key]) => !(context.props.ignoreCss.includes(key))));
+        }
+        if (data.element in context.props.elementClasses) {
+          nodeData.class = context.props.elementClasses[data.element];
         }
         return h(data.element, nodeData, fromContentArray(data.children));
       }
