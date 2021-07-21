@@ -130,10 +130,8 @@ export default function (componentDefs, inputTable, parseContent, defaultToTable
             }
             const cellsRemoved = 2;
             const decrementedIndices = row => row.map(index => index - cellsRemoved);
-            console.log("before", table.rows, table.cells);
             table.rows = [...table.rows.slice(0, foundRowIndex), ...table.rows.slice(foundRowIndex + 1).map(decrementedIndices)];
             table.cells = [...table.cells.slice(0, foundRow[0]), ...table.cells.slice(foundRow[0] + cellsRemoved)];
-            console.log("aften", table.rows, table.cells);
         }
     }
     const found = findComponent(table, componentDefs);
