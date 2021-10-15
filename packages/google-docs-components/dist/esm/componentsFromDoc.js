@@ -1,7 +1,11 @@
 import componentFromTable from "./processTable";
 export default function componentsFromDoc(config, doc) {
     const footnoteMap = {};
+    let contextName = "";
+    let contextStack = [];
+    const contextString = () => `${contextName}:${contextStack.reduce((curr, acc) => `${curr}.${acc}`)}`;
     function processElement(element) {
+        contextStack[contextStack.length - 1]++;
         if (typeof element == "string") {
             return element;
         }
@@ -51,7 +55,12 @@ export default function componentsFromDoc(config, doc) {
             const table = element;
             const component = componentFromTable(config.components, table, parseContent, true, config.classProp);
             if ("error" in component) {
-                console.error(component.message);
+                let message = `Error parsing table (${contextString()})`;
+                if (component.parsingAs) {
+                    message += ` as ${component.parsingAs}`;
+                }
+                message += ". " + component.message;
+                console.error(message);
                 return false;
             }
             return component;
@@ -70,10 +79,14 @@ export default function componentsFromDoc(config, doc) {
     }
     const parseContent = (elements) => {
         if (Array.isArray(elements)) {
-            return elements.map(processElement).filter(Boolean);
+            contextStack.push(0);
+            const processed = elements.map(processElement).filter(Boolean);
+            contextStack.pop();
+            return processed;
         }
     };
     if (doc) {
+        contextName = "body";
         const processedBody = parseContent(doc.body);
         let processedFootnotes;
         if (doc.footnotes) {
@@ -81,6 +94,7 @@ export default function componentsFromDoc(config, doc) {
                 const footnote = doc.footnotes[footnoteId];
                 if (!footnote)
                     return false;
+                contextName = "footnote:" + footnoteId;
                 return parseContent(footnote);
             };
             const footnoteEntries = Object.entries(footnoteMap).map(([footnoteId, footnoteNumber]) => ([footnoteNumber, footnoteContent(footnoteId)]));

@@ -1,5 +1,3 @@
-const [componentNotFoundError, invalidPropError, tableFormatError, componentError] = ["ComponentNotFoundError", "InvalidPropError", "TableFormatError", "ComponentError"]
-    .map((error) => (message) => ({ error, message }));
 function matchesName(componentDef, title) {
     const matchers = Array.isArray(componentDef.matchName) ? componentDef.matchName : [componentDef.matchName];
     if (matchers.find(matcher => matcher == title)) {
@@ -105,6 +103,11 @@ function findComponent(table, componentDefs) {
 }
 export default function (componentDefs, inputTable, parseContent, defaultToTable = true, classProp = false) {
     var _a, _b;
+    let matchingDef;
+    const [componentNotFoundError, invalidPropError, tableFormatError, componentError] = ["ComponentNotFoundError", "InvalidPropError", "TableFormatError", "ComponentError"]
+        .map((error) => (message) => {
+        return Object.assign({ error, message }, (matchingDef && { parsingAs: matchingDef.componentName }));
+    });
     const table = Object.assign({}, inputTable);
     let className;
     //TODO: have other kinds of automatically found props?
@@ -145,7 +148,7 @@ export default function (componentDefs, inputTable, parseContent, defaultToTable
     if (found.devSlot) {
         return found.devSlot;
     }
-    const matchingDef = found.component;
+    matchingDef = found.component;
     const returnData = Object.assign({ component: matchingDef.componentName }, (className && { className }));
     const isSlot = row => (row.length == 1 || row[0] == row[1]);
     const defaultSlotIndex = table.rows.findIndex((row, index) => (index > 0) && isSlot(row));

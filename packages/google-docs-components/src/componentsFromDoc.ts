@@ -8,7 +8,13 @@ export type ParseContent = (element: Array<element>) => ProcessedContent;
 export default function componentsFromDoc(config: Config, doc: document): ProcessedDocument {
   const footnoteMap: { [id: string]: number } = {}
 
+  let contextName = "";
+  let contextStack = [];
+  const contextString = () => `${contextName}:${contextStack.reduce( (curr, acc) => `${curr}.${acc}`)}`
+
   function processElement (element: element): ContentData | false {
+    contextStack[contextStack.length - 1]++;
+
     if (typeof element == "string") {
       return element;
     }
@@ -70,7 +76,12 @@ export default function componentsFromDoc(config: Config, doc: document): Proces
       const table = element as elementTypes.table;
       const component = componentFromTable(config.components, table, parseContent, true, config.classProp);
       if ("error" in component) {
-        console.error(component.message);
+        let message = `Error parsing table (${contextString()})`;
+        if (component.parsingAs) {
+          message += ` as ${component.parsingAs}`
+        }
+        message += ". " + component.message;
+        console.error(message);
         return false;
       }
       return component;
@@ -91,13 +102,16 @@ export default function componentsFromDoc(config: Config, doc: document): Proces
 
   const parseContent: ParseContent = (elements) => {
     if (Array.isArray(elements)) {
-      return elements.map(processElement).filter(Boolean) as ProcessedContent;
+      contextStack.push(0);
+      const processed = elements.map(processElement).filter(Boolean) as ProcessedContent;
+      contextStack.pop();
+      return processed;
     }
   }
 
   if (doc) {
+    contextName = "body";
     const processedBody = parseContent(doc.body);
-
 
     let processedFootnotes: { [footnoteNumber: number]: ProcessedContent };
 
@@ -105,6 +119,7 @@ export default function componentsFromDoc(config: Config, doc: document): Proces
       const footnoteContent = (footnoteId) => {
         const footnote = doc.footnotes[footnoteId];
         if (!footnote) return false;
+        contextName = "footnote:" + footnoteId;
         return parseContent(footnote);
       }
       const footnoteEntries = Object.entries(footnoteMap).map(

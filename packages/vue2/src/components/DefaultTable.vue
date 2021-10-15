@@ -28,7 +28,6 @@ export default {
             .map(i => i == -1 ? '.' : `area${i}`)
             .join(" ")}"`)
         .join(" ");
-      console.log(gridTemplateAreas);
       return {
         display: "grid",
         gridTemplateAreas

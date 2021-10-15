@@ -8,13 +8,16 @@ type Table = elementTypes.table;
 type Paragraph = elementTypes.paragraph;
 
 
-const [componentNotFoundError, invalidPropError, tableFormatError, componentError] = ["ComponentNotFoundError", "InvalidPropError", "TableFormatError", "ComponentError"]
-  .map( (error: ComponentParseErrorType) => (message: string) => ({ error, message }));
+export type ComponentParseErrorType =
+  "TableFormatError"
+  | "InvalidPropError"
+  | "ComponentError"
+  | "ComponentNotFoundError";
 
-export type ComponentParseErrorType = "TableFormatError" | "InvalidPropError" | "ComponentError" | "ComponentNotFoundError";
 export type ComponentParseError = {
   error: ComponentParseErrorType,
   message: string,
+  parsingAs?: string
 }
 
 function matchesName(componentDef: ComponentDef, title: string) {
@@ -28,7 +31,7 @@ function matchesName(componentDef: ComponentDef, title: string) {
 }
 
 function matchesPropOrSlot(componentDef: ComponentDef, key: string):
-  {prop: string} | {slot: string} | false {
+  { prop: string } | { slot: string } | false {
   const matchesKey = name => name.toLowerCase() == key.toLowerCase();
   const foundProp = componentDef.props && Object.keys(componentDef.props).find(matchesKey);
   if (foundProp) {
@@ -84,7 +87,7 @@ function parseSimple(element: Paragraph): string | false {
   return text;
 }
 
-function verifySimpleCell(cell: element[]): {errorMessage: string} | {text: string} {
+function verifySimpleCell(cell: element[]): { errorMessage: string } | { text: string } {
   if (cell.length != 1) {
     return {errorMessage: "must have one paragraph of content"}
   }
@@ -146,6 +149,17 @@ export default function (componentDefs: Array<ComponentDef>, inputTable: Table,
                          parseContent: ParseContent, defaultToTable = true, classProp: string | boolean = false)
   : ComponentData | TableData | DevSlotData | ComponentParseError {
 
+  let matchingDef: ComponentDef;
+
+  const [componentNotFoundError, invalidPropError, tableFormatError, componentError] = ["ComponentNotFoundError", "InvalidPropError", "TableFormatError", "ComponentError"]
+    .map((error: ComponentParseErrorType) =>
+      (message: string): ComponentParseError => {
+        return {
+          error, message,
+          ...(matchingDef && {parsingAs: matchingDef.componentName})
+        }
+      });
+
   const table = Object.assign({}, inputTable);
 
   let className;
@@ -198,7 +212,7 @@ export default function (componentDefs: Array<ComponentDef>, inputTable: Table,
     return found.devSlot;
   }
 
-  const matchingDef = found.component;
+  matchingDef = found.component;
 
   const returnData: ComponentData = {
     component: matchingDef.componentName,
@@ -206,7 +220,7 @@ export default function (componentDefs: Array<ComponentDef>, inputTable: Table,
   }
 
   const isSlot = row => (row.length == 1 || row[0] == row[1]);
-  const defaultSlotIndex = table.rows.findIndex((row,index) => (index > 0) && isSlot(row));
+  const defaultSlotIndex = table.rows.findIndex((row, index) => (index > 0) && isSlot(row));
   if (defaultSlotIndex > -1) {
     if (defaultSlotIndex != table.rows.length - 1)
       return tableFormatError("There's a default slot (a row with one entry) that isn't the last row")
