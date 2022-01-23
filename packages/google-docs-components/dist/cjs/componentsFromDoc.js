@@ -22,6 +22,14 @@ function componentsFromDoc(config, doc) {
             };
             return data;
         }
+        if (element.type == "header") {
+            const header = element;
+            const data = {
+                element: "h" + header.size,
+                children: parseContent(header.children)
+            };
+            return data;
+        }
         if (element.type == "list") {
             const list = element;
             const tag = list.ordered ? "ol" : "ul";

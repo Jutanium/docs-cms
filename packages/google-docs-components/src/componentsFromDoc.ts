@@ -28,6 +28,15 @@ export default function componentsFromDoc(config: Config, doc: document): Proces
       return data;
     }
 
+    if (element.type == "header") {
+      const header = element as elementTypes.header;
+      const data: ElementData = {
+        element: "h" + header.size,
+        children: parseContent(header.children)
+      }
+      return data;
+    }
+
     if (element.type == "list") {
       const list = element as elementTypes.list;
       const tag = list.ordered ? "ol" : "ul";
