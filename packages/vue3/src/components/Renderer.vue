@@ -1,8 +1,8 @@
 
 <script lang="ts">
 import type { ContentData, ProcessedContent } from "google-docs-components";
-import { defineComponent, h, VNode } from "vue";
-import type { PropType } from "vue";
+import { defineComponent, h } from "vue";
+import type { PropType, VNode } from "vue";
 import DefaultTable from "./DefaultTable.vue";
 
 export default defineComponent({
@@ -37,9 +37,9 @@ export default defineComponent({
     },
   },
   render() {
-    function fromContent(
+    const fromContent = (
       data: ContentData
-    ): VNode | Array<String | VNode> | string | false {
+    ): VNode | Array<String | VNode> | string | false => {
       if (typeof data == "string") {
         const inlineSlotMatches = data.matchAll(this.inlineSlotFormat);
 
@@ -93,7 +93,7 @@ export default defineComponent({
         const nodeProps: { [key: string]: any } = {};
         if (!(data.component in this.components)) return false;
         if (data.props) {
-          nodeProps.props = data.props;
+          Object.assign(nodeProps, data.props);
         }
         if (data.className) {
           nodeProps.class = data.className;
@@ -126,17 +126,18 @@ export default defineComponent({
             `cell:${index}`,
             () => fromContentArray(contentData),
           ]);
-          return h(this.tableComponent, {
-            props: {
+          return h(
+            this.tableComponent,
+            {
               tableData: data,
+              ...(data.className && { class: data.className }),
             },
-            scopedSlots: Object.fromEntries(slotsEntries),
-            ...(data.className && { class: data.className }),
-          });
+            Object.fromEntries(slotsEntries)
+          );
         }
       }
       return false;
-    }
+    };
     function fromContentArray(contentArray: ProcessedContent) {
       return contentArray
         .map((data) => fromContent(data))

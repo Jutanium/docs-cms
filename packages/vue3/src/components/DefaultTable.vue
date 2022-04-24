@@ -1,6 +1,11 @@
 <template>
   <div class="doc-table-root" :style="rootStyles">
-    <div class="doc-table-cell" v-for="(_, i) in tableData.cells" :style="cellStyles(i)">
+    <div
+      class="doc-table-cell"
+      v-for="(_, i) in tableData.cells"
+      :key="_"
+      :style="cellStyles(i)"
+    >
       <slot :name="`cell:${i}`"></slot>
     </div>
   </div>
@@ -13,7 +18,7 @@ export default {
     tableData: {
       type: Object,
       required: true,
-    }
+    },
   },
   computed: {
     numRows() {
@@ -23,24 +28,24 @@ export default {
       return this.tableData.rows[0].length;
     },
     rootStyles() {
-      const gridTemplateAreas = this.tableData.rows.map(row =>
-        `"${row
-            .map(i => i == -1 ? '.' : `area${i}`)
-            .join(" ")}"`)
+      const gridTemplateAreas = this.tableData.rows
+        .map(
+          (row) => `"${row.map((i) => (i == -1 ? "." : `area${i}`)).join(" ")}"`
+        )
         .join(" ");
       return {
         display: "grid",
-        gridTemplateAreas
-      }
+        gridTemplateAreas,
+      };
     },
   },
   methods: {
     cellStyles(index) {
       return {
-        gridArea: `area${index}`
-      }
-    }
+        gridArea: `area${index}`,
+      };
+    },
   },
-}
+};
 </script>
 

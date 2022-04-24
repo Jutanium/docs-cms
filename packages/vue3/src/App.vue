@@ -1,13 +1,29 @@
 <script setup lang="ts">
 import OneSlot from "./components/OneSlot.vue";
+import MyComponent from "./components/MyComponent.vue";
 import doc from "../../sandbox/components.json";
+import Renderer from "./components/Renderer.vue";
+const registeredComponents = {
+  OneSlot,
+  MyComponent,
+};
 </script>
 
 <template>
   <div>
     <div>hi there testing</div>
-    <OneSlot> slot here </OneSlot>
-    {{ doc }}
+    <Renderer
+      class="pass-through"
+      :ignoreCss="[]"
+      :content="doc.body"
+      :components="registeredComponents"
+      :element-classes="{ p: [{ hi: true }, 'there'] }"
+    >
+      <template v-slot:DevSlot1>
+        I'm a slot
+        <p>A second element</p>
+      </template>
+    </Renderer>
   </div>
 </template>
 
