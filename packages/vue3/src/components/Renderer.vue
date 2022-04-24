@@ -49,7 +49,8 @@ export default defineComponent({
           const slotName = match[1];
           const inner = match[2];
           if (slotName in this.$slots) {
-            const resolvedSlot = this.$slots[slotName]({ inner });
+            const slotFunction = this.$slots[slotName] as (args: object) => any;
+            const resolvedSlot = slotFunction({ inner });
             if (resolvedSlot) {
               const start = match.index;
               const end = start + match[0].length;
@@ -116,7 +117,8 @@ export default defineComponent({
 
       if ("slot" in data) {
         if (data.slot in this.$slots) {
-          const resolvedSlot = this.$slots[data.slot]({});
+          const slotFunction = this.$slots[data.slot] as (args: object) => any;
+          const resolvedSlot = slotFunction({});
           if (resolvedSlot) return resolvedSlot;
         }
       }

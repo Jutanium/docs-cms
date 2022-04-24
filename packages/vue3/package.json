@@ -1,6 +1,15 @@
 {
-  "name": "vue3",
-  "version": "0.0.0",
+  "name": "docs-renderer-vue3",
+  "files": ["dist"],
+  "main": "./dist/docsrenderer.umd.js",
+  "module": "./dist/docsrenderer.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/docsrenderer.es.js",
+      "require": "./dist/docsrenderer.umd.js"
+    }
+  },
+  "version": "1.0.0",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",

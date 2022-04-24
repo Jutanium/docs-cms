@@ -1,8 +1,12 @@
 <script setup lang="ts">
+import type { ContentData, ProcessedContent } from "google-docs-components";
 import OneSlot from "./components/OneSlot.vue";
 import MyComponent from "./components/MyComponent.vue";
 import doc from "../../sandbox/components.json";
 import Renderer from "./components/Renderer.vue";
+
+const body = doc.body as ContentData[];
+
 const registeredComponents = {
   OneSlot,
   MyComponent,
@@ -15,7 +19,7 @@ const registeredComponents = {
     <Renderer
       class="pass-through"
       :ignoreCss="[]"
-      :content="doc.body"
+      :content="body"
       :components="registeredComponents"
       :element-classes="{ p: [{ hi: true }, 'there'] }"
     >
