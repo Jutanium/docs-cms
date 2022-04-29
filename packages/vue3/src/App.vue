@@ -18,6 +18,7 @@ const registeredComponents = {
     <div>hi there testing</div>
     <Renderer
       class="pass-through"
+      rootElement="div"
       :ignoreCss="[]"
       :content="body"
       :components="registeredComponents"
@@ -26,6 +27,7 @@ const registeredComponents = {
       <template v-slot:DevSlot1>
         I'm a slot
         <p>A second element</p>
+        <MyComponent :prop1="1" :prop2="2"></MyComponent>
       </template>
     </Renderer>
   </div>

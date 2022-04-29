@@ -8,6 +8,10 @@ import DefaultTable from "./DefaultTable.vue";
 export default defineComponent({
   name: "Renderer",
   props: {
+    rootElement: {
+      type: [Boolean, String] as PropType<string | false>,
+      default: false,
+    },
     content: {
       type: Array as PropType<ProcessedContent>,
       required: true,
@@ -119,6 +123,7 @@ export default defineComponent({
         if (data.slot in this.$slots) {
           const slotFunction = this.$slots[data.slot] as (args: object) => any;
           const resolvedSlot = slotFunction({});
+          console.log(resolvedSlot);
           if (resolvedSlot) return resolvedSlot;
         }
       }
@@ -147,7 +152,11 @@ export default defineComponent({
         .filter(Boolean) as Array<VNode>;
     }
 
-    return h("div", {}, fromContentArray(this.content));
+    if (this.rootElement) {
+      return h(this.rootElement, {}, fromContentArray(this.content));
+    }
+
+    return fromContentArray(this.content);
   },
 });
 </script>
